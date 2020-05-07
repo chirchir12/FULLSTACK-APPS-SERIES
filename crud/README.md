@@ -12,19 +12,19 @@ this is a simple application to manage employees
 ![screenshot](images/final.png)
 
 ## Built With
-# front end
+### front end
 - HTML5
 - CSS3
 - bootstrap
 - reactjs
-# backend 
+### backend 
 - nodejs
 - express
 - sequlize
 - sequelize-cli
 - mysql 
 
-# data management 
+## data management 
 - context api with Hooks
 
 ## Authors
@@ -37,8 +37,12 @@ this is a simple application to manage employees
 - Email: [email](chirchir7370@gmail.com)
 
 ## endpoints
-1. create employee/get all employess (/api/employees
-2. get/update/delete one employee (api/employees/:id
+1. create employees -> post `/api/employees`
+2. get all employees -> get `/api/employees`
+3. get one employee -> get `/api/employees/:id`
+4. update one employee-> put `/api/employees/:id`
+5. delete employee -> delete `/api/employees/:id`
+
 
 ## Getting started
 - clone repo ( https://github.com/chirchir12/FULLSTACK-APPS-SERIES.git )
