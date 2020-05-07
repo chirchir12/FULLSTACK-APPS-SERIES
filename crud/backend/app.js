@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-
+const employeeRoute = require('./api/routes/employee')
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -12,7 +12,7 @@ app.use((req, res, next) => {
     next();
 });
 
-
+app.use('/api', employeeRoute)
 
 module.exports = app;
 
