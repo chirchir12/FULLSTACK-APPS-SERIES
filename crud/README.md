@@ -36,8 +36,21 @@ this is a simple application to manage employees
 - Linkedin: [linkedin](https://www.linkedin.com/in/emmanuel-chirchir/ )
 - Email: [email](chirchir7370@gmail.com)
 
+## endpoints
+1. create employee/get all employess (/api/employees
+2. get/update/delete one employee (api/employees/:id
 
 ## Getting started
+- clone repo ( https://github.com/chirchir12/FULLSTACK-APPS-SERIES.git )
+- move to crud repo 
+### backend 
+- cd to backedn
+- run npm install
+- npm start
+### front-end
+- cd to client
+- run npm install
+- run npm start
 
 
 
