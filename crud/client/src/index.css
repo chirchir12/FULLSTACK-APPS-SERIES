@@ -30,7 +30,8 @@ code {
   border: 1px solid transparent;
 }
 .nav-link:hover,
-.navbar-brand:hover {
+.navbar-brand:hover,
+.active {
   color: #fff;
   border: 1px dotted #fff;
   transition: 0.5s ease-out;

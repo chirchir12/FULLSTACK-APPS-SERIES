@@ -1,16 +1,25 @@
 import React from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 import NavBar from './Navbar/NavBar';
 import Home from './Home/Home';
+import Edit from './Edit/Edit';
+import Create from './Create/Create';
+import Detail from './Detail/Detail';
 
 function App() {
   return (
-    <div className="App">
-      <NavBar />
-      <div className="container">
-        <Home />
+    <Router>
+      <div className="App">
+        <NavBar />
+        <div className="container">
+          <Route exact path="/" component={Home} />
+          <Route exact path="/create" component={Create} />
+          <Route exact path="/employee/:id" component={Detail} />
+          <Route exact path="/employee/:id/edit" component={Edit} />
+        </div>
       </div>
-    </div>
+    </Router>
   );
 }
 

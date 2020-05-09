@@ -1,10 +1,10 @@
 import React from 'react';
 
-function Edit(props) {
+function Create(props) {
   return (
     <div className="row mt-4">
       <div className="col-12 col-md-6 mx-auto">
-        <h1 className="h4">Edit Employee</h1>
+        <h1 className="h4">Create New Employee</h1>
         <form>
           <div className="form-group">
             <div className="row">
@@ -45,7 +45,7 @@ function Edit(props) {
             <input type="date" className="form-control" id="dob" />
           </div>
           <button type="submit" className="btn btn-primary">
-            Edit
+            Save
           </button>
         </form>
       </div>
@@ -53,4 +53,4 @@ function Edit(props) {
   );
 }
 
-export default Edit;
+export default Create;

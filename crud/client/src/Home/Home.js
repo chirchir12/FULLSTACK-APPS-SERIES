@@ -1,4 +1,5 @@
 import React from 'react';
+import Item from './Item';
 
 function Home(props) {
   return (
@@ -19,25 +20,12 @@ function Home(props) {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>mark@gmail.com</td>
-            <td>0705814794</td>
-            <td>2020-05-06</td>
-            <td>
-              <a className="pl-2" href="view">
-                View
-              </a>
-              <a className="pl-2" href="view">
-                edit
-              </a>
-              <a className="pl-2" href="view">
-                delete
-              </a>
-            </td>
-          </tr>
+          {[1, 2, 3, 4, 5, 6, 7].map(item => {
+            if (!item) {
+              return "No Employee yet"
+            }
+            return <Item item={item} key={item.id} />
+          })}
         </tbody>
       </table>
     </div>
