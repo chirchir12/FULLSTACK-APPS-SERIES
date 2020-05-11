@@ -1,23 +1,48 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
+import { DataContext } from '../Context/DataContext';
 
 function Create(props) {
+  const { saveEmployee } = useContext(DataContext);
+  const [data, setData] = useState({
+    firstName: '',
+    lastName: '',
+    phone: '',
+    address: '',
+    email: '',
+    dob: '',
+  });
+  // handle input changes
+  const handleChnage = (event) => {
+    setData({ ...data, [event.target.name]: event.target.value });
+  };
+  // handle form submission
+  const handleSubmission = (event) => {
+    event.preventDefault();
+    saveEmployee(data);
+  };
   return (
     <div className="row mt-4">
       <div className="col-12 col-md-6 mx-auto">
         <h1 className="h4">Create New Employee</h1>
-        <form>
+        <form onSubmit={handleSubmission} method="POST">
           <div className="form-group">
             <div className="row">
-              <div class="col">
+              <div className="col">
                 <input
                   type="text"
+                  name="firstName"
+                  value={data.firstName || ''}
+                  onChange={handleChnage}
                   className="form-control"
                   placeholder="First name"
                 />
               </div>
-              <div class="col">
+              <div className="col">
                 <input
                   type="text"
+                  name="lastName"
+                  value={data.lastName || ''}
+                  onChange={handleChnage}
                   className="form-control"
                   placeholder="Last name"
                 />
@@ -28,6 +53,9 @@ function Create(props) {
             <label htmlFor="exampleInputEmail1">Email address</label>
             <input
               type="email"
+              name="email"
+              value={data.email || ''}
+              onChange={handleChnage}
               className="form-control"
               id="exampleInputEmail1"
               aria-describedby="emailHelp"
@@ -38,11 +66,36 @@ function Create(props) {
           </div>
           <div className="form-group">
             <label htmlFor="phone">Phone</label>
-            <input type="tel" className="form-control" id="phone" />
+            <input
+              type="tel"
+              name="phone"
+              value={data.phone || ''}
+              onChange={handleChnage}
+              className="form-control"
+              id="phone"
+            />
           </div>
           <div className="form-group">
             <label htmlFor="dob">Date of Birth</label>
-            <input type="date" className="form-control" id="dob" />
+            <input
+              type="date"
+              name="dob"
+              value={data.dob || ''}
+              onChange={handleChnage}
+              className="form-control"
+              id="dob"
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="address">Address</label>
+            <input
+              type="address"
+              name="address"
+              value={data.address || ''}
+              onChange={handleChnage}
+              className="form-control"
+              id="address"
+            />
           </div>
           <button type="submit" className="btn btn-primary">
             Save

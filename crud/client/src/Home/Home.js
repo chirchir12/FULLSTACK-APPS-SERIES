@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Item from './Item';
-
+import { DataContext } from '../Context/DataContext';
 function Home(props) {
+  const { employees } = useContext(DataContext);
+  console.log(employees);
   return (
     <div>
       <h1>All Employees</h1>
@@ -20,11 +22,13 @@ function Home(props) {
           </tr>
         </thead>
         <tbody>
-          {[1, 2, 3, 4, 5, 6, 7].map(item => {
+          {employees.map((item, index) => {
+            let x = 0;
             if (!item) {
-              return "No Employee yet"
+              return 'No Employee yet';
             }
-            return <Item item={item} key={item.id} />
+            item.number = index + 1;
+            return <Item item={item} key={item.id} />;
           })}
         </tbody>
       </table>
