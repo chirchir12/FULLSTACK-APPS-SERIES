@@ -19,6 +19,15 @@ function Create(props) {
   const handleSubmission = (event) => {
     event.preventDefault();
     saveEmployee(data);
+    setData({
+      firstName: '',
+      lastName: '',
+      phone: '',
+      address: '',
+      email: '',
+      dob: '',
+    });
+    props.history.push('/');
   };
   return (
     <div className="row mt-4">

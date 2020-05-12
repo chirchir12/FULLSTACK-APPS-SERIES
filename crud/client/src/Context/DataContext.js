@@ -8,15 +8,18 @@ function DataContextProvider(props) {
     (async () => {
       const results = await fetch('http://localhost:5000/api/employees');
       const data = await results.json();
-      setEmployees(data);
+      setEmployees([...employees, ...data]);
     })();
   }, []);
   // save data
   const saveEmployee = (employee) => {
-    console.log(employee);
+    console.log(employee.firstName);
     fetch('http://localhost:5000/api/employees', {
       method: 'POST',
-      body: employee,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(employee),
     })
       .then(() => ({ message: 'data has been saved' }))
       .catch((error) => ({ error: error }));
