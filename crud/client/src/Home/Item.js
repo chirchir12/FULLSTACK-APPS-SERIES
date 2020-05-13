@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { DataContext } from '../Context/DataContext';
 function Item(props) {
+  const { deleteEmployee } = useContext(DataContext);
   return (
     <>
       <tr>
@@ -23,7 +25,11 @@ function Item(props) {
           >
             edit <i className="fas fa-edit"></i>
           </Link>
-          <button className="ml-2 btn btn-outline-danger btn-sm" href="view">
+          <button
+            onClick={() => deleteEmployee(props.item.id)}
+            className="ml-2 btn btn-outline-danger btn-sm"
+            href="view"
+          >
             delete <i className="fas fa-trash-alt"></i>
           </button>
         </td>
