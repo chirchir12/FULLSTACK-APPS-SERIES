@@ -1,7 +1,8 @@
 import React, { useContext, useState } from 'react';
 import { DataContext } from '../Context/DataContext';
-
+import { useHistory } from 'react-router-dom';
 function Create(props) {
+  const history = useHistory();
   const { saveEmployee } = useContext(DataContext);
   const [data, setData] = useState({
     firstName: '',
@@ -27,7 +28,7 @@ function Create(props) {
       email: '',
       dob: '',
     });
-    props.history.push('/');
+    history.push('/');
   };
   return (
     <div className="row mt-4">

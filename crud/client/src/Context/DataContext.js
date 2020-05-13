@@ -13,7 +13,6 @@ function DataContextProvider(props) {
   }, []);
   // save data
   const saveEmployee = (employee) => {
-    console.log(employee.firstName);
     fetch('http://localhost:5000/api/employees', {
       method: 'POST',
       headers: {
