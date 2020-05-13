@@ -1,7 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { DataContext } from '../Context/DataContext';
+
+import { useHistory } from 'react-router-dom';
 function Detail(props) {
-  console.log(props.match.params.id);
+  const history = useHistory();
+  const { deleteEmployee } = useContext(DataContext);
   const [employee, setEmployee] = useState({});
 
   useEffect(() => {
@@ -10,6 +14,10 @@ function Detail(props) {
       .then((results) => setEmployee(results));
   }, [props.match.params.id]);
 
+  const handleDelete = (event) => {
+    deleteEmployee(employee.id);
+    history.push('/');
+  };
   return (
     <div className="row mt-3">
       <div className="col-12 col-md-6 mx-auto">
@@ -27,7 +35,10 @@ function Detail(props) {
             <Link to="/" className="mt-3 card-link btn btn-success">
               back
             </Link>
-            <button className="mt-3 ml-2 card-link btn btn-danger">
+            <button
+              onClick={handleDelete}
+              className="mt-3 ml-2 card-link btn btn-danger"
+            >
               delete
             </button>
           </div>

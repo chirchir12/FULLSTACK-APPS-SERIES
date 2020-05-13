@@ -28,7 +28,6 @@ function Create(props) {
       email: '',
       dob: '',
     });
-    history.push('/');
   };
   return (
     <div className="row mt-4">
