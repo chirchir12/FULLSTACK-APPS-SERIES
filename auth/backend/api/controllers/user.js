@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken');
 const User = require('../../models').User
 const Profile = require('../../models').Profile
 
@@ -30,14 +31,17 @@ exports.loginUser = async (req, res) => {
     if (!passwordMatch) {
         return res.status(401).json({ error: 'Password is wrong' })
     }
-    //3. authourize
+    //3. create access token
+    const token = jwt.sign({ email: userExist.dataValues.email }, 'CHIRCHIR_KEY', { expiresIn: '24h' })
+    //4. authourize
     return res.status(200).json({
         user: {
             firstName: userExist.dataValues.firstName,
             lastName: userExist.dataValues.lastName,
             email: userExist.dataValues.email
         },
-        isAuthenticated: true
+        isAuthenticated: true,
+        token
 
     })
 
