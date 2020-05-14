@@ -2,6 +2,8 @@
 
 this is a simple application to manage employees
 
+![screenshot](screenshots/s1.png) 
+
 ## functionalities
 * create employee
 * get all employees
@@ -9,7 +11,7 @@ this is a simple application to manage employees
 * update employee 
 * delete employee
 
-![screenshot](screenshots/s1.png)
+
 
 ## Built With
 ### front end
