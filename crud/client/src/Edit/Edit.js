@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
+import moment from 'moment'
 import { DataContext } from '../Context/DataContext';
 import { useHistory } from 'react-router-dom';
 
@@ -10,7 +11,9 @@ function Edit(props) {
   useEffect(() => {
     fetch(`http://localhost:5000/api/employees/${props.match.params.id}`)
       .then((respons) => respons.json())
-      .then((results) => setData(results));
+      .then((results) => {
+        setData({ ...results, dob: moment.utc(results.dob).local().format('YYYY-MM-DD') })
+      });
   }, [props.match.params.id]);
   // handle input changes
   const handleChnage = (event) => {
@@ -22,7 +25,7 @@ function Edit(props) {
     updateEmployee(data);
     history.push('/');
   };
-  console.log(data);
+
   return (
     <div className="row mt-4">
       <div className="col-12 col-md-6 mx-auto">
@@ -83,6 +86,7 @@ function Edit(props) {
             <input
               type="date"
               name="dob"
+
               value={data.dob || ''}
               onChange={handleChnage}
               className="form-control"

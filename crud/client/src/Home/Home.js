@@ -3,7 +3,7 @@ import Item from './Item';
 import { DataContext } from '../Context/DataContext';
 function Home(props) {
   const { employees } = useContext(DataContext);
-  console.log(employees);
+
   return (
     <div>
       <h1>All Employees</h1>
@@ -22,14 +22,10 @@ function Home(props) {
           </tr>
         </thead>
         <tbody>
-          {employees.map((item, index) => {
-            let x = 0;
-            if (!item) {
-              return 'No Employee yet';
-            }
+          {employees.length > 0 ? employees.map((item, index) => {
             item.number = index + 1;
             return <Item item={item} key={item.id} />;
-          })}
+          }) : (<p className="h3 text-center mt-3"> No employees added Yet</p>)}
         </tbody>
       </table>
     </div>

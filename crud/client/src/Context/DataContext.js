@@ -19,7 +19,7 @@ function DataContextProvider(props) {
       const data = await results.json();
       setEmployees(data);
     })();
-  }, [newEmployee]);
+  }, [newEmployee, employees.length]);
   // save data
 
   const saveEmployee = (employee) => {
@@ -36,10 +36,8 @@ function DataContextProvider(props) {
       .catch((error) => ({ error: error }));
   };
 
-  // find single data
-  // in detail page
 
-  // delete data
+  // delete data ok
   const deleteEmployee = (id) => {
     fetch(`http://localhost:5000/api/employees/${id}`, {
       method: 'DELETE',
@@ -47,7 +45,7 @@ function DataContextProvider(props) {
         'Content-Type': 'application/json',
       },
     })
-      .then(() => window.location.reload())
+      .then(() => setEmployees(employees.filter(employee => employee.id !== id)))
       .catch((error) => ({ error: error }));
   };
 
@@ -60,7 +58,13 @@ function DataContextProvider(props) {
       },
       body: JSON.stringify(employee),
     })
-      .then(() => ({ message: 'data has been updated' }))
+      .then(() => {
+        (async () => {
+          const results = await fetch('http://localhost:5000/api/employees');
+          const data = await results.json();
+          setEmployees(data);
+        })();
+      })
       .catch((error) => ({ error: error }));
   };
 
