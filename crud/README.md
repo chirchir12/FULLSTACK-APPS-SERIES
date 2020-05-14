@@ -9,7 +9,7 @@ this is a simple application to manage employees
 * update employee 
 * delete employee
 
-![screenshot](images/final.png)
+![screenshot](screenshots/s1.png)
 
 ## Built With
 ### front end
@@ -17,6 +17,11 @@ this is a simple application to manage employees
 - CSS3
 - bootstrap
 - reactjs
+- Context API
+- momentjs
+- React Hooks
+- React Router
+- Fetch API
 ### backend 
 - nodejs
 - express

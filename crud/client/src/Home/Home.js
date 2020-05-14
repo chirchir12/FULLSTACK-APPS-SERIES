@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import Item from './Item';
+import moment from 'moment'
 import { DataContext } from '../Context/DataContext';
 function Home(props) {
   const { employees } = useContext(DataContext);
@@ -16,6 +17,7 @@ function Home(props) {
             <th scope="col">Email</th>
             <th scope="col">Phone</th>
             <th scope="col">Date of Birth</th>
+            <th scope="col">Address</th>
             <th colSpan="3" scope="col">
               Action
             </th>
@@ -24,6 +26,7 @@ function Home(props) {
         <tbody>
           {employees.length > 0 ? employees.map((item, index) => {
             item.number = index + 1;
+            item.dob = moment.utc(item.dob).local().format('YYYY-MM-DD')
             return <Item item={item} key={item.id} />;
           }) : (<p className="h3 text-center mt-3"> No employees added Yet</p>)}
         </tbody>

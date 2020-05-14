@@ -12,6 +12,7 @@ function Item(props) {
         <td>{props.item.email}</td>
         <td>{props.item.phone}</td>
         <td>{props.item.dob}</td>
+        <td>{props.item.address}</td>
         <td>
           <Link
             className="ml-2 btn btn-outline-primary btn-sm"
