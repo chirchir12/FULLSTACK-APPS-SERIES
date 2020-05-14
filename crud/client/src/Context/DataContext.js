@@ -3,15 +3,23 @@ import React, { createContext, useState, useEffect } from 'react';
 export const DataContext = createContext();
 function DataContextProvider(props) {
   const [employees, setEmployees] = useState([]);
+  const [newEmployee, setnewEmployee] = useState({
+    firstName: '',
+    lastName: '',
+    phone: '',
+    address: '',
+    email: '',
+    dob: '',
+  });
 
   // fetching data once
   useEffect(() => {
     (async () => {
       const results = await fetch('http://localhost:5000/api/employees');
       const data = await results.json();
-      setEmployees([...employees, ...data]);
+      setEmployees(data);
     })();
-  }, []);
+  }, [newEmployee]);
   // save data
 
   const saveEmployee = (employee) => {
@@ -22,7 +30,9 @@ function DataContextProvider(props) {
       },
       body: JSON.stringify(employee),
     })
-      .then(() => ({ message: 'data has been saved' }))
+      .then(() => {
+        return setnewEmployee({})
+      })
       .catch((error) => ({ error: error }));
   };
 
@@ -56,7 +66,7 @@ function DataContextProvider(props) {
 
   return (
     <DataContext.Provider
-      value={{ employees, saveEmployee, updateEmployee, deleteEmployee }}
+      value={{ employees, newEmployee, setnewEmployee, saveEmployee, updateEmployee, deleteEmployee }}
     >
       {props.children}
     </DataContext.Provider>

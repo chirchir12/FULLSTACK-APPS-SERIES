@@ -1,33 +1,19 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { DataContext } from '../Context/DataContext';
 import { useHistory } from 'react-router-dom';
 function Create(props) {
   const history = useHistory();
-  const { saveEmployee } = useContext(DataContext);
-  const [data, setData] = useState({
-    firstName: '',
-    lastName: '',
-    phone: '',
-    address: '',
-    email: '',
-    dob: '',
-  });
+  const { saveEmployee, newEmployee, setnewEmployee } = useContext(DataContext);
+
   // handle input changes
   const handleChnage = (event) => {
-    setData({ ...data, [event.target.name]: event.target.value });
+    setnewEmployee({ ...newEmployee, [event.target.name]: event.target.value });
   };
   // handle form submission
   const handleSubmission = (event) => {
     event.preventDefault();
-    saveEmployee(data);
-    setData({
-      firstName: '',
-      lastName: '',
-      phone: '',
-      address: '',
-      email: '',
-      dob: '',
-    });
+    saveEmployee(newEmployee);
+    history.push('/')
   };
   return (
     <div className="row mt-4">
@@ -40,7 +26,7 @@ function Create(props) {
                 <input
                   type="text"
                   name="firstName"
-                  value={data.firstName || ''}
+                  value={newEmployee.firstName || ''}
                   onChange={handleChnage}
                   className="form-control"
                   placeholder="First name"
@@ -50,7 +36,7 @@ function Create(props) {
                 <input
                   type="text"
                   name="lastName"
-                  value={data.lastName || ''}
+                  value={newEmployee.lastName || ''}
                   onChange={handleChnage}
                   className="form-control"
                   placeholder="Last name"
@@ -63,7 +49,7 @@ function Create(props) {
             <input
               type="email"
               name="email"
-              value={data.email || ''}
+              value={newEmployee.email || ''}
               onChange={handleChnage}
               className="form-control"
               id="exampleInputEmail1"
@@ -78,7 +64,7 @@ function Create(props) {
             <input
               type="tel"
               name="phone"
-              value={data.phone || ''}
+              value={newEmployee.phone || ''}
               onChange={handleChnage}
               className="form-control"
               id="phone"
@@ -89,7 +75,7 @@ function Create(props) {
             <input
               type="date"
               name="dob"
-              value={data.dob || ''}
+              value={newEmployee.dob || ''}
               onChange={handleChnage}
               className="form-control"
               id="dob"
@@ -100,7 +86,7 @@ function Create(props) {
             <input
               type="address"
               name="address"
-              value={data.address || ''}
+              value={newEmployee.address || ''}
               onChange={handleChnage}
               className="form-control"
               id="address"
