@@ -33,7 +33,7 @@ exports.loginUser = async (req, res) => {
         return res.status(401).json({ error: 'Password is wrong' })
     }
     //3. create access token
-    const token = jwt.sign({ email: userExist.dataValues.email }, process.env.TOKEN_SECRET, { expiresIn: '1800s' })
+    const token = jwt.sign({ id: userExist.dataValues.id }, process.env.TOKEN_SECRET, { expiresIn: '1800s' })
     //4. authourize
     return res.status(200).json({
         user: {
