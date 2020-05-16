@@ -1,5 +1,5 @@
 const express = require('express');
-
+const ProfileRoute = require('./api/routers/profile')
 const UserRouter = require('./api/routers/user')
 const app = express();
 app.use(express.json());
@@ -13,6 +13,7 @@ app.use((req, res, next) => {
     next();
 });
 app.use('/api/auth', UserRouter)
+app.use('/api/user', ProfileRoute)
 module.exports = app;
 
 

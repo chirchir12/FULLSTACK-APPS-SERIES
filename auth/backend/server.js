@@ -21,15 +21,16 @@ const errorHandler = error => {
         throw error;
     }
     const address = server.address();
-    const bind = typeof address === 'string' ? 'pipe ' + address : 'port: ' + port;
+    let bind = typeof address === 'string' ? 'pipe ' + address : 'port: ' + port;
     switch (error.code) {
         case 'EACCES':
             console.error(bind + ' requires elevated privileges.');
             process.exit(1);
             break;
         case 'EADDRINUSE':
-            console.error(bind + ' is already in use.');
-            process.exit(1);
+            console.log('port in use, changing to another port')
+            bind = typeof address === 'string' ? 'pipe ' + address : 'port: ' + (port + 1);
+            process.exit(0);
             break;
         default:
             throw error;
