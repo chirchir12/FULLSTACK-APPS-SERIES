@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken');
 const User = require('../../models').User
 const Profile = require('../../models').Profile
+require('dotenv').config()
 
 exports.registerUser = (req, res) => {
     User.create(req.body)
@@ -32,7 +33,7 @@ exports.loginUser = async (req, res) => {
         return res.status(401).json({ error: 'Password is wrong' })
     }
     //3. create access token
-    const token = jwt.sign({ email: userExist.dataValues.email }, 'CHIRCHIR_KEY', { expiresIn: '24h' })
+    const token = jwt.sign({ email: userExist.dataValues.email }, process.env.TOKEN_SECRET, { expiresIn: '1800s' })
     //4. authourize
     return res.status(200).json({
         user: {
