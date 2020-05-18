@@ -5,6 +5,7 @@ import NavBar from './components/NavBar/NavBar';
 import Footer from './components/Footer/Footer';
 import Login from './components/Login/Login';
 import Dashboard from './components/Dashboard/Dashboard';
+import Update from './components/Dashboard/Update/Update';
 
 function App() {
   return (
@@ -13,7 +14,8 @@ function App() {
       <div className="container">
         {/* <Login /> */}
         {/* <Register /> */}
-        <Dashboard />
+        {/* <Dashboard /> */}
+        <Update />
       </div>
       <Footer />
     </div>
