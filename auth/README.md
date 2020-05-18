@@ -12,7 +12,7 @@
 - register with the system
 - login
 - update profile
-- edit profile
+- Forgot Password
 
 ## end points
 
@@ -24,8 +24,6 @@
   - `/api/profile/update`
 - log out
   - `/api/auth/logout`
-- edit profile
-  - `/api/profile/edit`
 
 ## Author
 
