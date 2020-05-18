@@ -23,6 +23,10 @@ nav .nav-link:hover {
   height: 82vh;
 }
 
+.register-row {
+  height: 100vh;
+}
+
 button.btn-style {
   color: #fff;
   background-color: #7952b3;
