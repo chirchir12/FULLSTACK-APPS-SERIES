@@ -36,3 +36,17 @@ button.btn-style:hover {
   background-color: #492783;
   color: #fff;
 }
+
+.card.bg-light {
+  background-color: #fff !important;
+}
+
+.remove-list-style {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.bold-text {
+  font-weight: 700;
+}
