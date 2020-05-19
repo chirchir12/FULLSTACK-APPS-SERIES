@@ -1,10 +1,11 @@
 import React from 'react';
+import { NavLink, Link } from 'react-router-dom';
 
 function NavBar(props) {
   return (
     <nav className="navbar navbar-expand-lg bg-primary-color  ">
       <div className="container">
-        <a className="navbar-brand color-white link" href="#..">
+        <a className="navbar-brand color-white link" href="/">
           UserDbR
         </a>
         <button
@@ -22,24 +23,36 @@ function NavBar(props) {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav ml-auto">
             <li className="nav-item active">
-              <a className="nav-link color-white link" href="#..">
+              <NavLink exact className="nav-link color-white link" to="/">
                 Home
-              </a>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <a className="nav-link color-white link" href="#..">
+              <NavLink
+                exact
+                className="nav-link color-white link"
+                to="/user/login"
+              >
                 Login
-              </a>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <a className="nav-link color-white link" href="#..">
+              <NavLink
+                exact
+                className="nav-link color-white link"
+                to="/user/register"
+              >
                 Register
-              </a>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <a className="nav-link color-white link" href="#..">
+              <NavLink
+                exact
+                className="nav-link color-white link"
+                to="/profile/dashboard"
+              >
                 Dashboard
-              </a>
+              </NavLink>
             </li>
           </ul>
         </div>
