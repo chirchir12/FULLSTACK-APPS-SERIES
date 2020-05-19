@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function Dashboard(props) {
   return (
@@ -7,7 +8,7 @@ function Dashboard(props) {
         <div className="card bg-light shadow-lg  rounded">
           <div class="card-header d-flex justify-content-between">
             <span>Profile</span>
-            <a href="ghg">edit</a>
+            <Link to="/profile/update">edit</Link>
           </div>
           <div class="card-body">
             <p class="card-text ">
