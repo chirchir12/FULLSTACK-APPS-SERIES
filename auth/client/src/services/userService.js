@@ -1,0 +1,22 @@
+//1 isAuthenticated
+
+export const isAuthenticated = () => {
+  const user = localStorage.getItem('user');
+  return user && JSON.parse(user.token);
+};
+
+//2. authHeader
+export const authHeader = () => {
+  const user = JSON.parse(localStorage.getItem('user'));
+  if (user && user.token) {
+    return {
+      Authorization: `Bearer ${token}`,
+    };
+  }
+  return {};
+};
+
+// logout
+export const logout = () => {
+  localStorage.removeItem('user');
+};
