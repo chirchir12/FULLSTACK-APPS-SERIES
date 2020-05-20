@@ -10,6 +10,7 @@ function UserContextProvider(props) {
     lastName: '',
     email: '',
     password: '',
+    cpassword: '',
   });
   const [loginUser, setLoginUser] = useState({
     email: '',
