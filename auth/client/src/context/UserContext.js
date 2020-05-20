@@ -60,6 +60,7 @@ function UserContextProvider(props) {
         setLoginUser,
         setUserProfile,
         register,
+        message,
       }}
     >
       {props.children}

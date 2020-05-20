@@ -9,7 +9,17 @@ function Register(props) {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(newUser);
+    console.log(newUser.password === newUser.cpassword);
+    if (newUser.password === newUser.cpassword) {
+      const user = {
+        firstName: newUser.firstName,
+        lastName: newUser.lastName,
+        email: newUser.email,
+        password: newUser.password,
+      };
+      return register(user);
+    }
+    console.log('password dont match');
   };
 
   return (
@@ -45,8 +55,7 @@ function Register(props) {
                   type="text"
                   value={newUser.lastName || ''}
                   onChange={handleChange}
-                  type="text"
-                  class="form-control"
+                  className="form-control"
                   placeholder="Last name"
                   required
                 />
@@ -60,18 +69,16 @@ function Register(props) {
               className="form-control"
               id="exampleInputEmail1"
               name="email"
-              type="text"
               value={newUser.email || ''}
               onChange={handleChange}
               aria-describedby="emailHelp"
             />
           </div>
-          <div class="form-group">
+          <div className="form-group">
             <label htmlFor="exampleInputPassword1">Password</label>
             <input
               type="password"
               name="password"
-              type="password"
               value={newUser.password || ''}
               onChange={handleChange}
               className="form-control"
@@ -79,12 +86,11 @@ function Register(props) {
               required
             />
           </div>
-          <div class="form-group">
+          <div className="form-group">
             <label htmlFor="cpassword"> Confirm Password</label>
             <input
               type="password"
               name="cpassword"
-              type="password"
               value={newUser.cpassword || ''}
               onChange={handleChange}
               className="form-control"
