@@ -1,0 +1,52 @@
+.primary-color {
+  color: #7952b3;
+}
+.bg-primary-color {
+  background-color: #7952b3;
+}
+.color-white {
+  color: #fff;
+}
+
+.spacer {
+  flex: 1;
+}
+.link:hover {
+  color: #fff;
+}
+
+nav .nav-link:hover {
+  font-weight: 600;
+}
+
+.login-row {
+  height: 82vh;
+}
+
+.register-row {
+  height: 100vh;
+}
+
+button.btn-style {
+  color: #fff;
+  background-color: #7952b3;
+}
+
+button.btn-style:hover {
+  background-color: #492783;
+  color: #fff;
+}
+
+.card.bg-light {
+  background-color: #fff !important;
+}
+
+.remove-list-style {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.bold-text {
+  font-weight: 700;
+}
