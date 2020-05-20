@@ -16,16 +16,17 @@ function UserContextProvider(props) {
     email: '',
     password: '',
   });
-  const [userProfile, setUserProfile] = useState({});
+  const [userProfile, setUserProfile] = useState({
+    Profile: {},
+  });
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState({});
 
   // getProfile
   const fetchProfile = () => {
-    return fetch(`${BASE_URL}/user/profile`, { headers: authHeader() })
+    fetch(`${BASE_URL}/user/profile`, { headers: authHeader() })
       .then((response) => response.json())
       .then((results) => {
-        console.log('results is', results);
         setUserProfile(results);
       })
       .catch((error) => setErrors(error));
@@ -48,7 +49,10 @@ function UserContextProvider(props) {
       body: JSON.stringify(user),
     })
       .then((response) => response.json())
-      .then((userInfo) => setUser(userInfo))
+      .then((userInfo) => {
+        fetchProfile();
+        setUser(userInfo);
+      })
       .catch((error) => setErrors(error));
   };
 
