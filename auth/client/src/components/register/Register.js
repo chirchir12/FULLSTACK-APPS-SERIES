@@ -3,7 +3,7 @@ function Register(props) {
   return (
     <div className="row register-row  py-3">
       <div className="col-12 col-md-7 mx-auto">
-        <form className="shadow-lg p-3 rounded">
+        <form className="shadow-lg p-3 rounded bg-light">
           <span className="h3 d-block text-center mb-3">Register</span>
           <div className="form-row">
             <div className="col-12 col-md-6">
