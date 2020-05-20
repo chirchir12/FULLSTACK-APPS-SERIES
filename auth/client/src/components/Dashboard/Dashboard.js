@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { UserContext } from '../../context/UserContext';
 
 function Dashboard(props) {
+  const { userProfile } = useContext(UserContext);
+  console.log(userProfile);
   return (
     <div className="row register-row pt-5">
       <div className="col-12 col-md-8 mx-auto">
