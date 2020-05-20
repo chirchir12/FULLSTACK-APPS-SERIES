@@ -41,6 +41,15 @@ function UserContextProvider(props) {
       .catch((error) => setErrors(error));
   };
   // login
+  const login = (user) => {
+    fetch(`${BASE_URL}/auth/login`, {
+      method: 'Post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(user),
+    })
+      .then((message) => setMessage(message))
+      .catch((error) => setErrors(error));
+  };
 
   // updatePassword
 
@@ -59,7 +68,7 @@ function UserContextProvider(props) {
         setLoginUser,
         setUserProfile,
         register,
-        message,
+        login,
       }}
     >
       {props.children}
