@@ -22,7 +22,7 @@ function UserContextProvider(props) {
 
   // getProfile
   const fetchProfile = () => {
-    return fetch(`${BASE_URL}/user/profile`, { headers: authHeader })
+    return fetch(`${BASE_URL}/user/profile`, { headers: authHeader() })
       .then((response) => response.json())
       .then((results) => {
         console.log('results is', results);
