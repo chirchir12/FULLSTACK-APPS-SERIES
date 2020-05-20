@@ -1,5 +1,5 @@
 import React, { useEffect, createContext, useState } from 'react';
-
+import { setUser, authHeader } from '../services/userService';
 const BASE_URL = 'http://localhost:5000/api';
 
 export const UserContext = createContext();
@@ -22,7 +22,7 @@ function UserContextProvider(props) {
 
   // getProfile
   const fetchProfile = () => {
-    return fetch(`${BASE_URL}/user/profile`)
+    return fetch(`${BASE_URL}/user/profile`, { headers: authHeader })
       .then((response) => response.json())
       .then((results) => {
         console.log('results is', results);
@@ -47,7 +47,8 @@ function UserContextProvider(props) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(user),
     })
-      .then((message) => setMessage(message))
+      .then((response) => response.json())
+      .then((userInfo) => setUser(userInfo))
       .catch((error) => setErrors(error));
   };
 

@@ -10,7 +10,7 @@ export const authHeader = () => {
   const user = JSON.parse(localStorage.getItem('user'));
   if (user && user.token) {
     return {
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${user.token}`,
     };
   }
   return {};
@@ -19,4 +19,8 @@ export const authHeader = () => {
 // logout
 export const logout = () => {
   localStorage.removeItem('user');
+};
+
+export const setUser = (userData) => {
+  localStorage.setItem('user', JSON.stringify(userData));
 };
