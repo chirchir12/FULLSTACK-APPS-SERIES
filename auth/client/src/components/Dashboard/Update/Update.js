@@ -1,6 +1,8 @@
-import React from 'react';
-
+import React, { useContext } from 'react';
+import { UserContext } from '../../../context/UserContext';
 function Update(props) {
+  const { userProfile } = useContext(UserContext);
+  const { Profile } = userProfile;
   return (
     <div className="row register-row  py-3">
       <div className="col-12 col-md-7 mx-auto">
@@ -13,6 +15,7 @@ function Update(props) {
                 <input
                   id="firstname"
                   type="text"
+                  value={userProfile.firstName || ''}
                   className="form-control"
                   placeholder="First name"
                 />
@@ -24,6 +27,7 @@ function Update(props) {
                 <input
                   id="lastname"
                   type="text"
+                  value={userProfile.lastName || ''}
                   class="form-control"
                   placeholder="Last name"
                 />
@@ -37,6 +41,7 @@ function Update(props) {
               className="form-control"
               id="exampleInputEmail1"
               name="email"
+              value={userProfile.email || ''}
               aria-describedby="emailHelp"
             />
           </div>
@@ -45,6 +50,7 @@ function Update(props) {
             <input
               type="text"
               name="address"
+              value={Profile.address || ''}
               className="form-control"
               id="address"
             />
@@ -55,12 +61,19 @@ function Update(props) {
               type="tel"
               name="phone"
               className="form-control"
+              value={Profile.phone || ''}
               id="phone"
             />
           </div>
           <div class="form-group">
             <label htmlFor="date"> Date of Birth</label>
-            <input type="date" name="date" className="form-control" id="date" />
+            <input
+              type="date"
+              value={Profile.dob || ''}
+              name="date"
+              className="form-control"
+              id="date"
+            />
           </div>
 
           <button type="submit" className="btn btn-style">
