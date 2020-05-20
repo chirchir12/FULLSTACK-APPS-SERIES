@@ -53,7 +53,6 @@ function UserContextProvider(props) {
     <UserContext.Provider
       value={{
         userProfile,
-        errors,
         newUser,
         setNewUser,
         loginUser,
