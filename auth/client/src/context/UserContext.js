@@ -16,7 +16,7 @@ function UserContextProvider({ props }) {
   const [userProfile, setUserProfile] = useState({});
   const [errors, setErrors] = useState({});
 
-  // register
+  // getProfile
   const fetchProfile = () => {
     fetch(`${BASE_URL}/user/profile`)
       .then((response) => response.json)
