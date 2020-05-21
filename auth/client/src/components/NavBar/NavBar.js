@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { isAuthenticated, logout } from '../../services/userService';
 function NavBar(props) {
-  console.log(isAuthenticated());
+  console.log(isAuthenticated);
   return (
     <nav className="navbar navbar-expand-lg bg-primary-color  ">
       <div className="container">
@@ -28,33 +28,38 @@ function NavBar(props) {
                 Home
               </NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink
-                exact
-                className="nav-link color-white link"
-                to="/user/login"
-              >
-                Login
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink
-                exact
-                className="nav-link color-white link"
-                to="/user/register"
-              >
-                Register
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink
-                exact
-                className="nav-link color-white link"
-                to="/profile/dashboard"
-              >
-                Dashboard
-              </NavLink>
-            </li>
+            {!isAuthenticated() ? (
+              <>
+                <li className="nav-item">
+                  <NavLink
+                    exact
+                    className="nav-link color-white link"
+                    to="/user/login"
+                  >
+                    Login
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink
+                    exact
+                    className="nav-link color-white link"
+                    to="/user/register"
+                  >
+                    Register
+                  </NavLink>
+                </li>
+              </>
+            ) : (
+              <li className="nav-item">
+                <NavLink
+                  exact
+                  className="nav-link color-white link"
+                  to="/profile/dashboard"
+                >
+                  Dashboard
+                </NavLink>
+              </li>
+            )}
           </ul>
         </div>
       </div>
