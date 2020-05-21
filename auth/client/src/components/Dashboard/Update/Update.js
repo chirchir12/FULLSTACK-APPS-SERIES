@@ -1,10 +1,13 @@
 import React, { useContext } from 'react';
 import { UserContext } from '../../../context/UserContext';
-
+import { Redirect } from 'react-router-dom';
 function Update(props) {
-  const { userProfile, setUserProfile, updateProfile } = useContext(
-    UserContext
-  );
+  const {
+    userProfile,
+    setUserProfile,
+    updateProfile,
+    isAuthicated,
+  } = useContext(UserContext);
   const { Profile } = userProfile;
 
   const handleChange = (e) => {
@@ -20,6 +23,9 @@ function Update(props) {
     updateProfile(userProfile);
     console.log(userProfile);
   };
+  if (!isAuthicated) {
+    return <Redirect to="/user/login" />;
+  }
   return (
     <div className="row register-row  py-3">
       <div className="col-12 col-md-7 mx-auto">

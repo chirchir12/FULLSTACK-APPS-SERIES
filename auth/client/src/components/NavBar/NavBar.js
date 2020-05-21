@@ -6,7 +6,6 @@ import { useHistory } from 'react-router-dom';
 function NavBar(props) {
   let history = useHistory();
   const { logout, isAuthicated } = useContext(UserContext);
-  console.log('user auth is', isAuthicated);
   return (
     <nav className="navbar navbar-expand-lg bg-primary-color  ">
       <div className="container">
@@ -36,7 +35,7 @@ function NavBar(props) {
               <>
                 <li className="nav-item">
                   <NavLink
-                    exact
+                    exact={true}
                     className="nav-link color-white link"
                     to="/user/login"
                   >
@@ -45,7 +44,7 @@ function NavBar(props) {
                 </li>
                 <li className="nav-item">
                   <NavLink
-                    exact
+                    exact={true}
                     className="nav-link color-white link"
                     to="/user/register"
                   >
@@ -57,7 +56,7 @@ function NavBar(props) {
               <>
                 <li className="nav-item">
                   <NavLink
-                    exact
+                    exact={true}
                     className="nav-link color-white link"
                     to="/profile/dashboard"
                   >
@@ -70,7 +69,7 @@ function NavBar(props) {
                       logout();
                       history.push('/user/login');
                     }}
-                    exact
+                    exact={true}
                     className="nav-link btn btn-danger color-white link"
                     to="/profile/dashboard"
                   >

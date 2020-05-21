@@ -1,9 +1,11 @@
 import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Redirect } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
 function Login(props) {
   let history = useHistory();
-  const { loginUser, setLoginUser, login } = useContext(UserContext);
+  const { loginUser, setLoginUser, login, isAuthicated } = useContext(
+    UserContext
+  );
 
   const handleChange = (e) => {
     setLoginUser({ ...loginUser, [e.target.name]: e.target.value });
@@ -13,6 +15,11 @@ function Login(props) {
     login(loginUser);
     history.push('/profile/dashboard');
   };
+
+  if (isAuthicated) {
+    return <Redirect to="/profile/dashboard" />;
+  }
+
   return (
     <div className="row login-row pt-5">
       <div className="col-12 col-md-6 mx-auto">

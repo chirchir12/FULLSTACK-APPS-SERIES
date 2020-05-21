@@ -1,10 +1,12 @@
 import React, { useContext } from 'react';
 import { UserContext } from '../../context/UserContext';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Redirect } from 'react-router-dom';
 
 function Register(props) {
   let history = useHistory();
-  const { newUser, setNewUser, register } = useContext(UserContext);
+  const { newUser, setNewUser, register, isAuthicated } = useContext(
+    UserContext
+  );
 
   const handleChange = (e) => {
     setNewUser({ ...newUser, [e.target.name]: e.target.value });
@@ -24,6 +26,9 @@ function Register(props) {
     }
     console.log('password dont match');
   };
+  if (isAuthicated) {
+    return <Redirect to="/profile/dashboard" />;
+  }
 
   return (
     <div className="row register-row  py-3">
