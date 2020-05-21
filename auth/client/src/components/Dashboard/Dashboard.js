@@ -4,6 +4,7 @@ import { UserContext } from '../../context/UserContext';
 
 function Dashboard(props) {
   const { userProfile } = useContext(UserContext);
+  console.log(userProfile);
   const { Profile } = userProfile;
   return (
     <div className="row register-row pt-5">

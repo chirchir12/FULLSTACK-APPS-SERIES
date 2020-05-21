@@ -1,7 +1,9 @@
 import React, { useContext } from 'react';
 import { UserContext } from '../../context/UserContext';
+import { useHistory } from 'react-router-dom';
 
 function Register(props) {
+  let history = useHistory();
   const { newUser, setNewUser, register } = useContext(UserContext);
 
   const handleChange = (e) => {
@@ -17,7 +19,8 @@ function Register(props) {
         email: newUser.email,
         password: newUser.password,
       };
-      return register(user);
+      register(user);
+      history.push('/user/login');
     }
     console.log('password dont match');
   };

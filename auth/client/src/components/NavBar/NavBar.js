@@ -1,14 +1,12 @@
 import React, { useContext } from 'react';
 import { UserContext } from '../../context/UserContext';
 import { NavLink } from 'react-router-dom';
-import { isAuthenticated } from '../../services/userService';
 import { useHistory } from 'react-router-dom';
 
 function NavBar(props) {
-  console.log(isAuthenticated);
-
   let history = useHistory();
-  const { logout } = useContext(UserContext);
+  const { logout, isAuthicated } = useContext(UserContext);
+  console.log('user auth is', isAuthicated);
   return (
     <nav className="navbar navbar-expand-lg bg-primary-color  ">
       <div className="container">
@@ -34,7 +32,7 @@ function NavBar(props) {
                 Home
               </NavLink>
             </li>
-            {!isAuthenticated() ? (
+            {!isAuthicated ? (
               <>
                 <li className="nav-item">
                   <NavLink

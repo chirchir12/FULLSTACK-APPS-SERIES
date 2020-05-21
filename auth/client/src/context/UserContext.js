@@ -21,8 +21,17 @@ function UserContextProvider(props) {
   const [userProfile, setUserProfile] = useState({
     Profile: {},
   });
-  const [errors, setErrors] = useState({});
-  const [message, setMessage] = useState({});
+  const [authUser, setAuthUser] = useState(
+    JSON.parse(localStorage.getItem('user'))
+  );
+  const [isAuthicated, setisAuthenticated] = useState(
+    !!JSON.parse(localStorage.getItem('user'))
+  );
+
+  console.log(
+    'fucking user is log?',
+    !!JSON.parse(localStorage.getItem('user'))
+  );
 
   // getProfile
   const fetchProfile = () => {
@@ -38,7 +47,7 @@ function UserContextProvider(props) {
           },
         });
       })
-      .catch((error) => setErrors(error));
+      .catch((error) => console.log(error));
   };
 
   const register = (user) => {
@@ -47,12 +56,13 @@ function UserContextProvider(props) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(user),
     })
-      .then((message) => setMessage(message))
-      .catch((error) => setErrors(error));
+      .then((message) => console.log(message))
+      .catch((error) => console.log(error));
   };
   // logout
   const logout = () => {
     localStorage.removeItem('user');
+    setisAuthenticated(false);
   };
   // login
   const login = (user) => {
@@ -65,8 +75,9 @@ function UserContextProvider(props) {
       .then((userInfo) => {
         fetchProfile();
         setUser(userInfo);
+        setisAuthenticated(true);
       })
-      .catch((error) => setErrors(error));
+      .catch((error) => console.log(error));
   };
 
   // updatePassword
@@ -83,7 +94,7 @@ function UserContextProvider(props) {
       .then(() => {
         fetchProfile();
       })
-      .catch((error) => setErrors(error));
+      .catch((error) => console.log(error));
   };
 
   // side effects
@@ -102,9 +113,8 @@ function UserContextProvider(props) {
         register,
         login,
         logout,
-        errors,
-        message,
         updateProfile,
+        isAuthicated,
       }}
     >
       {props.children}
