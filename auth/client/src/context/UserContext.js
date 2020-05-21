@@ -84,7 +84,7 @@ function UserContextProvider(props) {
   // side effects
   useEffect(() => {
     fetchProfile();
-  }, []);
+  }, [userProfile]);
   return (
     <UserContext.Provider
       value={{
