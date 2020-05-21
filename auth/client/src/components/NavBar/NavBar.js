@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { UserContext } from '../../context/UserContext';
 import { NavLink } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 function NavBar(props) {
+  let history = useHistory();
+  const { logout, isAuthicated } = useContext(UserContext);
   return (
     <nav className="navbar navbar-expand-lg bg-primary-color  ">
       <div className="container">
@@ -22,38 +26,66 @@ function NavBar(props) {
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav ml-auto">
-            <li className="nav-item active">
-              <NavLink exact className="nav-link color-white link" to="/">
+            <li className="nav-item">
+              <NavLink
+                activeClassName="active"
+                exact
+                className="nav-link color-white link mr-2"
+                to="/"
+              >
                 Home
               </NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink
-                exact
-                className="nav-link color-white link"
-                to="/user/login"
-              >
-                Login
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink
-                exact
-                className="nav-link color-white link"
-                to="/user/register"
-              >
-                Register
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink
-                exact
-                className="nav-link color-white link"
-                to="/profile/dashboard"
-              >
-                Dashboard
-              </NavLink>
-            </li>
+            {!isAuthicated ? (
+              <>
+                <li className="nav-item">
+                  <NavLink
+                    activeClassName="active"
+                    exact={true}
+                    className="nav-link color-white link mr-2"
+                    to="/user/login"
+                  >
+                    Login
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink
+                    activeClassName="active"
+                    exact={true}
+                    className="nav-link color-white link"
+                    to="/user/register"
+                  >
+                    Register
+                  </NavLink>
+                </li>
+              </>
+            ) : (
+              <>
+                <li className="nav-item">
+                  <NavLink
+                    activeClassName="active"
+                    exact={true}
+                    className="nav-link color-white link mr-2"
+                    to="/profile/dashboard"
+                  >
+                    Dashboard
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <button
+                    onClick={() => {
+                      logout();
+                      history.push('/user/login');
+                    }}
+                    exact={true}
+                    className="nav-link btn btn-danger color-white link"
+                    to="/profile/dashboard"
+                  >
+                    logout
+                  </button>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>

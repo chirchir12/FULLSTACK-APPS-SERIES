@@ -1,48 +1,58 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link, Redirect } from 'react-router-dom';
+import { UserContext } from '../../context/UserContext';
 
 function Dashboard(props) {
-  return (
-    <div className="row register-row pt-5">
-      <div className="col-12 col-md-8 mx-auto">
-        <div className="card bg-light shadow-lg  rounded">
-          <div class="card-header d-flex justify-content-between">
-            <span>Profile</span>
-            <Link to="/profile/update">edit</Link>
-          </div>
-          <div class="card-body">
-            <p class="card-text ">
-              <ul className="remove-list-style">
-                <li>
-                  <span className="bold-text d-block">Name</span>{' '}
-                  <span>Emmanuel Chirchir</span>
-                </li>
-                <li className="mt-2">
-                  <span className="bold-text d-block">Email</span>{' '}
-                  <span>chirchir@gmail.com</span>
-                </li>
-                <li className="mt-2">
-                  <span className="bold-text d-block">Age</span> <span>23</span>
-                </li>
-                <li className="mt-2">
-                  <span className="bold-text d-block">Address</span>{' '}
-                  <span>12 Kisumu</span>
-                </li>
-                <li className="mt-2">
-                  <span className="bold-text d-block">Residence</span>{' '}
-                  <span>Rongai</span>
-                </li>
-                <li className="mt-2">
-                  <span className="bold-text d-block">Phone</span>{' '}
-                  <span>+254705814794</span>
-                </li>
-              </ul>
-            </p>
+  const { userProfile, isAuthicated } = useContext(UserContext);
+  const { Profile } = userProfile;
+  if (!isAuthicated) {
+    return <Redirect to="/user/login" />;
+  } else {
+    return (
+      <div className="container">
+        <div className="row register-row pt-5">
+          <div className="col-12 col-md-8 mx-auto">
+            <div className="card bg-light shadow-lg  rounded">
+              <div className="card-header d-flex justify-content-between">
+                <span>Profile</span>
+                <Link to="/profile/update">edit</Link>
+              </div>
+              <div className="card-body">
+                <div className="card-text ">
+                  <ul className="remove-list-style">
+                    <li>
+                      <span className="bold-text d-block">Name</span>{' '}
+                      <span>{`${userProfile.firstName} ${userProfile.lastName}`}</span>
+                    </li>
+                    <li className="mt-2">
+                      <span className="bold-text d-block">Email</span>{' '}
+                      <span>{userProfile.email}</span>
+                    </li>
+                    <li className="mt-2">
+                      <span className="bold-text d-block">Age</span>{' '}
+                      <span>23</span>
+                    </li>
+                    <li className="mt-2">
+                      <span className="bold-text d-block">Address</span>{' '}
+                      <span>{Profile.address || 'Empty'}</span>
+                    </li>
+                    <li className="mt-2">
+                      <span className="bold-text d-block">Residence</span>{' '}
+                      <span>{Profile.residence || 'Empty'}</span>
+                    </li>
+                    <li className="mt-2">
+                      <span className="bold-text d-block">Phone</span>{' '}
+                      <span>{Profile.phone || 'Empty'}</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default Dashboard;

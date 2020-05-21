@@ -1,8 +1,8 @@
 //1 isAuthenticated
 
 export const isAuthenticated = () => {
-  const user = localStorage.getItem('user');
-  return user && JSON.parse(user.token);
+  const user = JSON.parse(localStorage.getItem('user'));
+  return user && user.token ? true : false;
 };
 
 //2. authHeader
@@ -10,13 +10,13 @@ export const authHeader = () => {
   const user = JSON.parse(localStorage.getItem('user'));
   if (user && user.token) {
     return {
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${user.token}`,
+      'Content-Type': 'application/json',
     };
   }
-  return {};
+  return null;
 };
 
-// logout
-export const logout = () => {
-  localStorage.removeItem('user');
+export const setUser = (userData) => {
+  return localStorage.setItem('user', JSON.stringify(userData));
 };
