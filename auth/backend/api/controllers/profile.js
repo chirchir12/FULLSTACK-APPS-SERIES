@@ -21,10 +21,30 @@ exports.updateUserProfile = async (req, res) => {
     }
 
     //2. if found update else throw
-    const updated = await Profile.update(req.body, {
-      where: { userId: req.user.id },
-    });
-    res.status(200).json({ message: 'record updated successfully' });
+
+    //get user data
+    const { firstName, lastName, email, password } = req.body;
+    // get profile data
+    const { address, residence, phone, avatar } = req.body.Profile;
+    const userupdated = await User.update(
+      { firstName, lastName, email, password },
+      {
+        where: { id: req.user.id },
+      }
+    );
+    if (userupdated) {
+      const updated = await Profile.update(
+        { address, residence, phone, avatar },
+        {
+          where: { userId: req.user.id },
+        }
+      );
+      if (updated) {
+        res.status(200).json({ message: 'record updated successfully' });
+      }
+    } else {
+      throw res.status(400).json({ error: 'bad request user not updated' });
+    }
   } catch (error) {
     res.json({ error: error });
   }
