@@ -1,21 +1,50 @@
 import React, { useContext } from 'react';
 import { UserContext } from '../../../context/UserContext';
+
 function Update(props) {
-  const { userProfile } = useContext(UserContext);
+  const { userProfile, setUserProfile } = useContext(UserContext);
   const { Profile } = userProfile;
+
+  const handleChange = (e) => {
+    setUserProfile({
+      ...userProfile,
+      [e.target.name]: e.target.value,
+      Profile: { ...Profile, [e.target.name]: e.target.value },
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const user = {
+      firstName: userProfile.firstName,
+      lastName: userProfile.lastName,
+      email: userProfile.email,
+      address: Profile.address,
+      phone: Profile.phone,
+      dob: Profile.dob,
+      residence: Profile.residence,
+    };
+    console.log(userProfile);
+    console.log('to be send to db', user);
+  };
   return (
     <div className="row register-row  py-3">
       <div className="col-12 col-md-7 mx-auto">
-        <form className="shadow-lg p-3 rounded bg-light">
+        <form
+          onSubmit={handleSubmit}
+          className="shadow-lg p-3 rounded bg-light"
+        >
           <span className="h3 d-block text-center mb-3">Update Profile</span>
           <div className="form-row">
             <div className="col-12 col-md-6">
               <div className="form-group">
                 <label htmlFor="firstname">Firstname</label>
                 <input
-                  id="firstname"
+                  id="firstName"
                   type="text"
+                  name="firstName"
                   value={userProfile.firstName || ''}
+                  onChange={handleChange}
                   className="form-control"
                   placeholder="First name"
                 />
@@ -27,8 +56,10 @@ function Update(props) {
                 <input
                   id="lastname"
                   type="text"
+                  name="lastName"
                   value={userProfile.lastName || ''}
-                  class="form-control"
+                  onChange={handleChange}
+                  className="form-control"
                   placeholder="Last name"
                 />
               </div>
@@ -42,35 +73,50 @@ function Update(props) {
               id="exampleInputEmail1"
               name="email"
               value={userProfile.email || ''}
+              onChange={handleChange}
               aria-describedby="emailHelp"
             />
           </div>
-          <div class="form-group">
+          <div className="form-group">
             <label htmlFor="address">Address</label>
             <input
               type="text"
               name="address"
-              value={Profile.address || ''}
+              value={userProfile.Profile.address || ''}
+              onChange={handleChange}
               className="form-control"
               id="address"
             />
           </div>
-          <div class="form-group">
+          <div className="form-group">
+            <label htmlFor="address">Residence</label>
+            <input
+              type="text"
+              name="residence"
+              value={userProfile.Profile.residence || ''}
+              onChange={handleChange}
+              className="form-control"
+              id="residence"
+            />
+          </div>
+          <div className="form-group">
             <label htmlFor="phone"> Phone</label>
             <input
               type="tel"
               name="phone"
               className="form-control"
-              value={Profile.phone || ''}
+              value={userProfile.Profile.phone || ''}
+              onChange={handleChange}
               id="phone"
             />
           </div>
-          <div class="form-group">
+          <div className="form-group">
             <label htmlFor="date"> Date of Birth</label>
             <input
               type="date"
               value={Profile.dob || ''}
-              name="date"
+              onChange={handleChange}
+              name="dob"
               className="form-control"
               id="date"
             />
