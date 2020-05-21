@@ -62,7 +62,7 @@ function UserContextProvider(props) {
   const updateProfile = (userProfileData) => {
     fetch(`${BASE_URL}/auth/login`, {
       method: 'Post',
-      headers: { 'Content-Type': 'application/json', authHeader() },
+      headers: authHeader(),
       body: JSON.stringify(userProfileData),
     })
       .then((response) => response.json())
@@ -90,6 +90,7 @@ function UserContextProvider(props) {
         login,
         errors,
         message,
+        updateProfile,
       }}
     >
       {props.children}

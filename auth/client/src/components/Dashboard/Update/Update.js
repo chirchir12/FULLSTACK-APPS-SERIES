@@ -2,7 +2,9 @@ import React, { useContext } from 'react';
 import { UserContext } from '../../../context/UserContext';
 
 function Update(props) {
-  const { userProfile, setUserProfile } = useContext(UserContext);
+  const { userProfile, setUserProfile, updateProfile } = useContext(
+    UserContext
+  );
   const { Profile } = userProfile;
 
   const handleChange = (e) => {
@@ -15,17 +17,8 @@ function Update(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const user = {
-      firstName: userProfile.firstName,
-      lastName: userProfile.lastName,
-      email: userProfile.email,
-      address: Profile.address,
-      phone: Profile.phone,
-      dob: Profile.dob,
-      residence: Profile.residence,
-    };
+    updateProfile(userProfile);
     console.log(userProfile);
-    console.log('to be send to db', user);
   };
   return (
     <div className="row register-row  py-3">
