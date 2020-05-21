@@ -2,6 +2,7 @@ const User = require('../../models').User;
 const Profile = require('../../models').Profile;
 
 exports.getUserProfile = async (req, res) => {
+  console.log(req.userid);
   const UserProfile = await User.findOne({
     where: { id: req.user.id },
     include: [Profile],

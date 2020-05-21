@@ -21,7 +21,6 @@ function Update(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     updateProfile(userProfile);
-    console.log(userProfile);
   };
   if (!isAuthicated) {
     return <Redirect to="/user/login" />;

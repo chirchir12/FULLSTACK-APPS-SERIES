@@ -1,8 +1,7 @@
 import React, { useContext } from 'react';
-import { useHistory, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
 function Login(props) {
-  let history = useHistory();
   const { loginUser, setLoginUser, login, isAuthicated } = useContext(
     UserContext
   );
@@ -13,7 +12,6 @@ function Login(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     login(loginUser);
-    history.push('/profile/dashboard');
   };
 
   if (isAuthicated) {

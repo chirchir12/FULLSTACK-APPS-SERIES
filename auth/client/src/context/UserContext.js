@@ -21,22 +21,22 @@ function UserContextProvider(props) {
   const [userProfile, setUserProfile] = useState({
     Profile: {},
   });
-  const [authUser, setAuthUser] = useState(
-    JSON.parse(localStorage.getItem('user'))
-  );
-  const [isAuthicated, setisAuthenticated] = useState(
-    !!JSON.parse(localStorage.getItem('user'))
-  );
 
-  console.log(
-    'fucking user is log?',
+  const [isAuthicated, setisAuthenticated] = useState(
     !!JSON.parse(localStorage.getItem('user'))
   );
 
   // getProfile
   const fetchProfile = () => {
-    fetch(`${BASE_URL}/user/profile`, { headers: authHeader() })
-      .then((response) => response.json())
+    fetch(`${BASE_URL}/user/profile`, {
+      headers: authHeader(),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('something went wrong');
+        }
+        return response.json();
+      })
       .then((results) => {
         const { Profile } = results;
         setUserProfile({
@@ -71,13 +71,23 @@ function UserContextProvider(props) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(user),
     })
-      .then((response) => response.json())
-      .then((userInfo) => {
-        fetchProfile();
-        setUser(userInfo);
-        setisAuthenticated(true);
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('wrong credentials');
+        }
+        return response.json();
       })
-      .catch((error) => console.log(error));
+      .then((userInfo) => {
+        if (userInfo) {
+          setUser(userInfo);
+          setisAuthenticated(true);
+          fetchProfile();
+        } else {
+          console.log('my user is ', loginUser);
+          console.log('I am fully fucked men');
+        }
+      })
+      .catch((error) => console.log('damn i found you', error));
   };
 
   // updatePassword

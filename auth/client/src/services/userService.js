@@ -14,9 +14,9 @@ export const authHeader = () => {
       'Content-Type': 'application/json',
     };
   }
-  return {};
+  return null;
 };
 
 export const setUser = (userData) => {
-  localStorage.setItem('user', JSON.stringify(userData));
+  return localStorage.setItem('user', JSON.stringify(userData));
 };

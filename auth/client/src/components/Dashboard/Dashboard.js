@@ -4,7 +4,6 @@ import { UserContext } from '../../context/UserContext';
 
 function Dashboard(props) {
   const { userProfile, isAuthicated } = useContext(UserContext);
-  console.log(isAuthicated, 'is the user status');
   const { Profile } = userProfile;
   if (!isAuthicated) {
     return <Redirect to="/user/login" />;
@@ -45,9 +44,6 @@ function Dashboard(props) {
                       <span className="bold-text d-block">Phone</span>{' '}
                       <span>{Profile.phone || 'Empty'}</span>
                     </li>
-                    <code>
-                      {console.log('I should be redirect', isAuthicated)}
-                    </code>
                   </ul>
                 </div>
               </div>
