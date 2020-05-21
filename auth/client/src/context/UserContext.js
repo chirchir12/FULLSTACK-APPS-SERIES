@@ -21,7 +21,7 @@ function UserContextProvider(props) {
   const [userProfile, setUserProfile] = useState({
     Profile: {},
   });
-
+  const [error, setError] = useState({});
   const [isAuthicated, setisAuthenticated] = useState(
     !!JSON.parse(localStorage.getItem('user'))
   );
@@ -47,7 +47,7 @@ function UserContextProvider(props) {
           },
         });
       })
-      .catch((error) => console.log(error));
+      .catch((error) => setError(error));
   };
 
   const register = (user) => {
@@ -123,6 +123,7 @@ function UserContextProvider(props) {
         register,
         login,
         logout,
+        error
         updateProfile,
         isAuthicated,
       }}
