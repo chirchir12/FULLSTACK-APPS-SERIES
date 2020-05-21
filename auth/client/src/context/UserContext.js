@@ -59,10 +59,24 @@ function UserContextProvider(props) {
   // updatePassword
 
   // updateProfile
+  const updateProfile = (userProfileData) => {
+    fetch(`${BASE_URL}/auth/login`, {
+      method: 'Post',
+      headers: { 'Content-Type': 'application/json', authHeader() },
+      body: JSON.stringify(userProfileData),
+    })
+      .then((response) => response.json())
+      .then((userInfo) => {
+        fetchProfile();
+        setUser(userInfo);
+      })
+      .catch((error) => setErrors(error));
+  };
+
   // side effects
   useEffect(() => {
     fetchProfile();
-  }, []);
+  }, [loginUser, userProfile]);
   return (
     <UserContext.Provider
       value={{
@@ -74,6 +88,8 @@ function UserContextProvider(props) {
         setUserProfile,
         register,
         login,
+        errors,
+        message,
       }}
     >
       {props.children}
