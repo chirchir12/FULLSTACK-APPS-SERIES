@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
 function Login(props) {
+  let history = useHistory();
   const { loginUser, setLoginUser, login } = useContext(UserContext);
 
   const handleChange = (e) => {
@@ -8,7 +10,8 @@ function Login(props) {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    return login(loginUser);
+    login(loginUser);
+    history.push('/profile/dashboard');
   };
   return (
     <div className="row login-row pt-5">

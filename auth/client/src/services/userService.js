@@ -17,11 +17,6 @@ export const authHeader = () => {
   return {};
 };
 
-// logout
-export const logout = () => {
-  localStorage.removeItem('user');
-};
-
 export const setUser = (userData) => {
   localStorage.setItem('user', JSON.stringify(userData));
 };

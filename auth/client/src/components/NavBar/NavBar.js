@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { UserContext } from '../../context/UserContext';
 import { NavLink } from 'react-router-dom';
-import { isAuthenticated, logout } from '../../services/userService';
+import { isAuthenticated } from '../../services/userService';
+import { useHistory } from 'react-router-dom';
+
 function NavBar(props) {
   console.log(isAuthenticated);
+
+  let history = useHistory();
+  const { logout } = useContext(UserContext);
   return (
     <nav className="navbar navbar-expand-lg bg-primary-color  ">
       <div className="container">
@@ -23,6 +29,11 @@ function NavBar(props) {
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav ml-auto">
+            <li className="nav-item active">
+              <NavLink exact className="nav-link color-white link" to="/">
+                Home
+              </NavLink>
+            </li>
             {!isAuthenticated() ? (
               <>
                 <li className="nav-item">
@@ -46,11 +57,6 @@ function NavBar(props) {
               </>
             ) : (
               <>
-                <li className="nav-item active">
-                  <NavLink exact className="nav-link color-white link" to="/">
-                    Home
-                  </NavLink>
-                </li>
                 <li className="nav-item">
                   <NavLink
                     exact
@@ -62,7 +68,10 @@ function NavBar(props) {
                 </li>
                 <li className="nav-item">
                   <button
-                    onClick={() => logout()}
+                    onClick={() => {
+                      logout();
+                      history.push('/user/login');
+                    }}
                     exact
                     className="nav-link btn btn-danger color-white link"
                     to="/profile/dashboard"

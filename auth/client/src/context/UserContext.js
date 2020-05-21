@@ -1,5 +1,6 @@
 import React, { useEffect, createContext, useState } from 'react';
 import moment from 'moment';
+
 import { setUser, authHeader } from '../services/userService';
 const BASE_URL = 'http://localhost:5000/api';
 
@@ -49,6 +50,10 @@ function UserContextProvider(props) {
       .then((message) => setMessage(message))
       .catch((error) => setErrors(error));
   };
+  // logout
+  const logout = () => {
+    localStorage.removeItem('user');
+  };
   // login
   const login = (user) => {
     fetch(`${BASE_URL}/auth/login`, {
@@ -84,7 +89,7 @@ function UserContextProvider(props) {
   // side effects
   useEffect(() => {
     fetchProfile();
-  }, [userProfile]);
+  }, []);
   return (
     <UserContext.Provider
       value={{
@@ -96,6 +101,7 @@ function UserContextProvider(props) {
         setUserProfile,
         register,
         login,
+        logout,
         errors,
         message,
         updateProfile,
