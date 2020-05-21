@@ -25,7 +25,7 @@ exports.updateUserProfile = async (req, res) => {
     //get user data
     const { firstName, lastName, email, password } = req.body;
     // get profile data
-    const { address, residence, phone, avatar } = req.body.Profile;
+    const { address, residence, phone, avatar, dob } = req.body.Profile;
     const userupdated = await User.update(
       { firstName, lastName, email, password },
       {
@@ -34,7 +34,7 @@ exports.updateUserProfile = async (req, res) => {
     );
     if (userupdated) {
       const updated = await Profile.update(
-        { address, residence, phone, avatar },
+        { address, residence, phone, avatar, dob },
         {
           where: { userId: req.user.id },
         }

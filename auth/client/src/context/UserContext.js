@@ -1,4 +1,5 @@
 import React, { useEffect, createContext, useState } from 'react';
+import moment from 'moment';
 import { setUser, authHeader } from '../services/userService';
 const BASE_URL = 'http://localhost:5000/api';
 
@@ -27,7 +28,14 @@ function UserContextProvider(props) {
     fetch(`${BASE_URL}/user/profile`, { headers: authHeader() })
       .then((response) => response.json())
       .then((results) => {
-        setUserProfile(results);
+        const { Profile } = results;
+        setUserProfile({
+          ...results,
+          Profile: {
+            ...Profile,
+            dob: moment.utc(results.dob).local().format('YYYY-MM-DD'),
+          },
+        });
       })
       .catch((error) => setErrors(error));
   };
@@ -60,15 +68,15 @@ function UserContextProvider(props) {
 
   // updateProfile
   const updateProfile = (userProfileData) => {
-    fetch(`${BASE_URL}/auth/login`, {
-      method: 'Post',
+    console.log('updating userprofile', userProfileData);
+    fetch(`${BASE_URL}/user/profile/update`, {
+      method: 'PUT',
       headers: authHeader(),
       body: JSON.stringify(userProfileData),
     })
       .then((response) => response.json())
-      .then((userInfo) => {
+      .then(() => {
         fetchProfile();
-        setUser(userInfo);
       })
       .catch((error) => setErrors(error));
   };
@@ -76,7 +84,7 @@ function UserContextProvider(props) {
   // side effects
   useEffect(() => {
     fetchProfile();
-  }, [loginUser, userProfile]);
+  }, []);
   return (
     <UserContext.Provider
       value={{
