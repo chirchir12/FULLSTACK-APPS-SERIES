@@ -82,6 +82,7 @@ function UserContextProvider(props) {
           setUser(userInfo);
           setisAuthenticated(true);
           fetchProfile();
+          setError({});
         } else {
           console.log('my user is ', loginUser);
           console.log('I am fully fucked men');
