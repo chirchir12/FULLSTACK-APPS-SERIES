@@ -23,11 +23,6 @@ function NavBar(props) {
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav ml-auto">
-            <li className="nav-item active">
-              <NavLink exact className="nav-link color-white link" to="/">
-                Home
-              </NavLink>
-            </li>
             {!isAuthenticated() ? (
               <>
                 <li className="nav-item">
@@ -50,15 +45,32 @@ function NavBar(props) {
                 </li>
               </>
             ) : (
-              <li className="nav-item">
-                <NavLink
-                  exact
-                  className="nav-link color-white link"
-                  to="/profile/dashboard"
-                >
-                  Dashboard
-                </NavLink>
-              </li>
+              <>
+                <li className="nav-item active">
+                  <NavLink exact className="nav-link color-white link" to="/">
+                    Home
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink
+                    exact
+                    className="nav-link color-white link"
+                    to="/profile/dashboard"
+                  >
+                    Dashboard
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <button
+                    onClick={() => logout()}
+                    exact
+                    className="nav-link btn btn-danger color-white link"
+                    to="/profile/dashboard"
+                  >
+                    logout
+                  </button>
+                </li>
+              </>
             )}
           </ul>
         </div>
