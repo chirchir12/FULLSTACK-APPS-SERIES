@@ -15,10 +15,6 @@
   color: #fff;
 }
 
-nav .nav-link:hover {
-  font-weight: 600;
-}
-
 .login-row {
   height: 82vh;
 }
@@ -49,4 +45,15 @@ button.btn-style:hover {
 
 .bold-text {
   font-weight: 700;
+}
+
+.nav-item {
+  border-bottom: 1px solid transparent;
+}
+.nav-item:hover {
+  border-bottom: 1px solid #311b92;
+}
+
+.active {
+  background-color: #311b92;
 }

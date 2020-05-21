@@ -26,8 +26,13 @@ function NavBar(props) {
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav ml-auto">
-            <li className="nav-item active">
-              <NavLink exact className="nav-link color-white link" to="/">
+            <li className="nav-item">
+              <NavLink
+                activeClassName="active"
+                exact
+                className="nav-link color-white link mr-2"
+                to="/"
+              >
                 Home
               </NavLink>
             </li>
@@ -35,8 +40,9 @@ function NavBar(props) {
               <>
                 <li className="nav-item">
                   <NavLink
+                    activeClassName="active"
                     exact={true}
-                    className="nav-link color-white link"
+                    className="nav-link color-white link mr-2"
                     to="/user/login"
                   >
                     Login
@@ -44,6 +50,7 @@ function NavBar(props) {
                 </li>
                 <li className="nav-item">
                   <NavLink
+                    activeClassName="active"
                     exact={true}
                     className="nav-link color-white link"
                     to="/user/register"
@@ -56,8 +63,9 @@ function NavBar(props) {
               <>
                 <li className="nav-item">
                   <NavLink
+                    activeClassName="active"
                     exact={true}
-                    className="nav-link color-white link"
+                    className="nav-link color-white link mr-2"
                     to="/profile/dashboard"
                   >
                     Dashboard
