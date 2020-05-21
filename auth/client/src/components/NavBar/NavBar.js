@@ -1,7 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-
+import { isAuthenticated, logout } from '../../services/userService';
 function NavBar(props) {
+  console.log(isAuthenticated());
   return (
     <nav className="navbar navbar-expand-lg bg-primary-color  ">
       <div className="container">
