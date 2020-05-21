@@ -2,28 +2,47 @@
 
 ## Achievements
 
-- create a restful application using node express and sequelize
+- create a restful application using node express
+- undestand how one-to-one relationship works
+- understand how to authenticate users using JWT
+- understand how to encrypt password using bcrypt
+- use sequelize to manage databases
 - create client side application that consumes a restful api
-- work with ORMs -sequelize-cli
-- understand database relationships -one to one relationship
+- work with -sequelize-cli
+- work with react router
+- how to use react redirect to redirect user based on their login status
+- how to work with authentication in react
 
 ## how it works
 
 - register with the system
 - login
 - update profile
-- Forgot Password
+
+## screenshots
+
+### register
+
+![screenshot](screenshots/register.png)
+
+### dashboard
+
+![screenshot](screenshots/dashboard.png)
+
+### update
+
+![screenshot](screenshots/update.png)
 
 ## end points
 
 - create user
-  - `/api/create`
+  - `/api/auth/register`
 - log user in
   - `/api/auth/login`
 - update profile
   - `/api/profile/update`
-- log out
-  - `/api/auth/logout`
+- get profile
+  - `/api/userprofile`
 
 ## Author
 
@@ -55,6 +74,8 @@
 4. HTML5
 5. CSS3
 6. React Router
+7. localStorage
+8. Redirect
 
 ## Contributions, issues and feature requests are welcome!
 
