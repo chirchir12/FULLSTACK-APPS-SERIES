@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
 function Login(props) {
-  const { loginUser, setLoginUser, login, isAuthicated } = useContext(
+  const { loginUser, setLoginUser, error, login, isAuthicated } = useContext(
     UserContext
   );
 
@@ -54,6 +54,11 @@ function Login(props) {
             <button type="submit" className="btn btn-style">
               Submit
             </button>
+            {error.length > 0 && (
+              <div className="alert alert-danger" role="alert">
+                {error}
+              </div>
+            )}
           </form>
         </div>
       </div>

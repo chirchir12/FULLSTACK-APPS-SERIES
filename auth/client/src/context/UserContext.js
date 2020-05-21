@@ -87,7 +87,7 @@ function UserContextProvider(props) {
           console.log('I am fully fucked men');
         }
       })
-      .catch((error) => console.log('damn i found you', error));
+      .catch((error) => setError('wrong credentials'));
   };
 
   // updatePassword
@@ -123,7 +123,7 @@ function UserContextProvider(props) {
         register,
         login,
         logout,
-        error
+        error,
         updateProfile,
         isAuthicated,
       }}
