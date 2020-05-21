@@ -26,7 +26,7 @@ function Edit(props) {
   return (
     <div className="row mt-4">
       <div className="col-12 col-md-6 mx-auto">
-        <h1 className="h4">Create New Employee</h1>
+        <h1 className="h4">Update Employee</h1>
         <form onSubmit={handleUpdate} method="POST">
           <div className="form-group">
             <div className="row">
