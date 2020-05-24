@@ -1,10 +1,12 @@
-# MINI-STACKOVERFLOW  USING REACT AND NODE JS
+# MINI-STACKOVERFLOW USING REACT AND NODE JS
 
 ## Goals & Achievements
 
 - create a restful application using node express
 - undestand how one-to-many relationship works
 - use sequelize to manage databases
+- form validation and error handling
+- error handling
 - work with authentication at front-end and backend
 - create client side application that consumes a restful api
 - work with -sequelize-cli
