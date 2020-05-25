@@ -59,3 +59,13 @@ exports.updateProblem = async (req, res) => {
   }
 };
 //5. delete
+exports.deleteProblem = (req, res) => {
+  Problem.destroy({
+    where: {
+      id: req.params.id,
+      userId: '61bf808c-a31f-4406-821e-689726808402',
+    },
+  })
+    .then(() => res.status(200).json({ message: 'record deleted' }))
+    .catch((error) => res.status(404).json({ error: error }));
+};
