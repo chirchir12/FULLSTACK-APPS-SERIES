@@ -1,4 +1,6 @@
 const express = require('express');
+const UserRouter = require('./api/routers/user');
+
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -18,4 +20,6 @@ app.use((req, res, next) => {
 });
 
 // my routes goes here
+app.use('/api/auth', UserRouter);
+
 module.exports = app;
