@@ -33,4 +33,29 @@ exports.getSingleProblem = (req, res) => {
     .catch((error) => res.status(404).json(error));
 };
 //4. update
+exports.updateProblem = async (req, res) => {
+  try {
+    const Problemexist = await Problem.findOne({
+      where: {
+        id: req.params.id,
+        userId: '61bf808c-a31f-4406-821e-689726808402',
+      },
+    });
+    if (!Problemexist) {
+      throw new Error('Language with this info does not exist');
+    }
+    const Problemupdate = await Problem.update(req.body, {
+      where: {
+        id: req.params.id,
+        userId: '61bf808c-a31f-4406-821e-689726808402',
+      },
+    });
+    if (!Problemupdate) {
+      throw new Error('Bad request');
+    }
+    return res.status(200).json({ message: 'record updated successfully' });
+  } catch (error) {
+    return res.status(400).json(error);
+  }
+};
 //5. delete
