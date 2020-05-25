@@ -1,4 +1,6 @@
 const Problem = require('../../models').Problem;
+const Solution = require('../../models').Solution;
+const User = require('../../models').User;
 
 //1. create
 exports.createProblem = (req, res) => {
@@ -14,6 +16,13 @@ exports.createProblem = (req, res) => {
     .catch((error) => res.status(400).json(error));
 };
 //2. get all
+exports.ProblemsList = (req, res) => {
+  Problem.findAll({
+    include: [{ model: User }, { model: Solution, include: [User] }],
+  })
+    .then((problems) => res.status(200).json(problems))
+    .catch((error) => res.status(404).json(error));
+};
 //3. get single
 //4. update
 //5. delete
