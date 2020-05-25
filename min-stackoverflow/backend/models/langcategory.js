@@ -16,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   );
   LangCategory.associate = function (models) {
     // associations can be defined here
+    LangCategory.hasMany(models.Problem, { foreignKey: 'langId' });
   };
   return LangCategory;
 };
