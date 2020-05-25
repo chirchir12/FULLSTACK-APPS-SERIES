@@ -16,6 +16,11 @@ exports.createLanguageCategory = (req, res) => {
     });
 };
 // list
+exports.languagesList = (req, res) => {
+  LangCategory.findAll({ attributes: ['name'] })
+    .then((languages) => res.status(200).json(languages))
+    .catch((error) => res.status(404).json({ error: error }));
+};
 
 // update
 
