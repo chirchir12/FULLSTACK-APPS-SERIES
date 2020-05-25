@@ -24,5 +24,13 @@ exports.ProblemsList = (req, res) => {
     .catch((error) => res.status(404).json(error));
 };
 //3. get single
+exports.getSingleProblem = (req, res) => {
+  Problem.findOne({
+    where: { id: req.params.id },
+    include: [{ model: User }, { model: Solution, include: [User] }],
+  })
+    .then((problem) => res.status(200).json(problem))
+    .catch((error) => res.status(404).json(error));
+};
 //4. update
 //5. delete
