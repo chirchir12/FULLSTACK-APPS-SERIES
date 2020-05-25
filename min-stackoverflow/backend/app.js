@@ -1,5 +1,6 @@
 const express = require('express');
 const UserRouter = require('./api/routes/users');
+const LanguageRoute = require('./api/routes/languageCategory');
 
 const app = express();
 app.use(express.json());
@@ -21,5 +22,6 @@ app.use((req, res, next) => {
 
 // my routes goes here
 app.use('/api/auth', UserRouter);
+app.use('/api/language', LanguageRoute);
 
 module.exports = app;
