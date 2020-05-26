@@ -14,7 +14,7 @@ exports.updateSolution = async (req, res) => {
     const solutionexit = await Solution.findOne({
       where: {
         id: req.params.id,
-        userId: '61bf808c-a31f-4406-821e-689726808402',
+        userId: req.user.id,
       },
     });
     if (!solutionexit) {
@@ -23,7 +23,7 @@ exports.updateSolution = async (req, res) => {
     const solutionupdate = await Solution.update(req.body, {
       where: {
         id: req.params.id,
-        userId: '61bf808c-a31f-4406-821e-689726808402',
+        userId: req.user.id,
       },
     });
     if (!solutionupdate) {
@@ -39,7 +39,7 @@ exports.deleteSolution = (req, res) => {
   Solution.destroy({
     where: {
       id: req.params.id,
-      userId: '61bf808c-a31f-4406-821e-689726808402',
+      userId: req.user.id,
     },
   })
     .then(() => res.status(200).json({ message: 'record deleted' }))
