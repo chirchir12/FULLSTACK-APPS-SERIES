@@ -38,7 +38,7 @@ exports.updateProblem = async (req, res) => {
     const Problemexist = await Problem.findOne({
       where: {
         id: req.params.id,
-        userId: '61bf808c-a31f-4406-821e-689726808402',
+        userId: req.user.id,
       },
     });
     if (!Problemexist) {
