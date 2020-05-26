@@ -6,7 +6,7 @@ const User = require('../../models').User;
 exports.createProblem = (req, res) => {
   Problem.create({
     ...req.body,
-    userId: '61bf808c-a31f-4406-821e-689726808402',
+    userId: req.user.id,
   })
     .then((problemCreated) =>
       res
