@@ -34,3 +34,14 @@ exports.updateSolution = async (req, res) => {
     return res.status(400).json(error);
   }
 };
+
+exports.deleteSolution = (req, res) => {
+  Solution.destroy({
+    where: {
+      id: req.params.id,
+      userId: '61bf808c-a31f-4406-821e-689726808402',
+    },
+  })
+    .then(() => res.status(200).json({ message: 'record deleted' }))
+    .catch((error) => res.status(404).json({ error: error }));
+};
