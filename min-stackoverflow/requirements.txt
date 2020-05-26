@@ -1,0 +1,32 @@
+user tables
+post tables
+solutions tables
+
+user can post many problems
+user can post many solutions for particular post problems
+user can login 
+user can logout
+user can change their passwords
+
+solutions are actually like a comment to particular post
+posts can have many solutions 
+
+
+structure
+
+user table contains
+- firstName
+- lastName
+- email
+- password
+
+problem table contains
+- problem title 
+- problem description
+- screenshots if required
+- language category
+
+solutions tables contains
+- solution description 
+- links to solutions if required
+- screenshots of solutions if required
