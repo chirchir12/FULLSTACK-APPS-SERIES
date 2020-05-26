@@ -9,7 +9,6 @@ exports.authUser = (req, res, next) => {
   if (token == null) return res.sendStatus(401); // if there isn't any token call redirect
   jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
     if (err) return res.sendStatus(403);
-    console.log('user data fucking id', user);
     req.user = user;
     next(); // pass the execution off to whatever request the client intended
   });
