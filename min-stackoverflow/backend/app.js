@@ -23,7 +23,7 @@ app.use((req, res, next) => {
 
 // my routes goes here
 app.use('/api/auth', UserRouter);
-app.use('/api/language', LanguageRoute);
+app.use('/api/languages', LanguageRoute);
 app.use('/api/problems', ProblemRoute);
 app.use('/api/solution', SolutionRoute);
 

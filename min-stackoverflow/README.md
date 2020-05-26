@@ -34,16 +34,44 @@
 
 ## end points
 
+##### user
+
 - register user
   - `/api/auth/register`
 - log user in
   - `/api/auth/login`
-- create post
-  - `/api/post/create`
-- update post
-  - `/api/post/update`
-- get posts
-  - `/api/posts`
+
+###### problem
+
+- create problem
+  - `/api/problems/create` -------> auth users only
+- update problems
+  - `/api/problems/update/:id` -------> auth users only
+  - delete problems
+  - `/api/problems/delete/:id` -------> auth users only
+- get problems
+  - `/api/problems/list`
+- get single Problem
+
+  - `/api/problems/list/:id`
+
+  ##### solution
+
+- create solution
+  - `/api/solution/create` -------> auth users only'
+- update solution
+  - `/api/solution/update/:id` -------> auth users only
+- delete solution
+  - `/api/solution/delete/:id` -------> auth users only
+
+##### language category
+
+- create language
+  - `/api/languages/create`
+- update solution
+  - `/api/languages/update/:id`
+- fetch all languages
+  - `/api/languages/all`
 
 ## Author Info
 
