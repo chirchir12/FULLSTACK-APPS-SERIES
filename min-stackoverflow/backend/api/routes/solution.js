@@ -4,11 +4,12 @@ const {
   updateSolution,
   deleteSolution,
 } = require('../controllers/solution');
+const { authUser } = require('../middleware/auth');
 
 const router = express.Router();
 
-router.post('/create', createSolution);
-router.put('/update/:id', updateSolution);
-router.delete('/delete/:id', deleteSolution);
+router.post('/create', authUser, createSolution);
+router.put('/update/:id', authUser, updateSolution);
+router.delete('/delete/:id', authUser, deleteSolution);
 
 module.exports = router;
