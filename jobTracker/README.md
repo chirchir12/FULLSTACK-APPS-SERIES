@@ -11,6 +11,15 @@
 
 ## getting started
 
+## Author Info
+
+##### follow me on
+
+- Github: [@githubhandle](https://github.com/chirchir12)
+- Twitter: [@twitterhandle](https://twitter.com/shadochir)
+- Linkedin: [linkedin](https://www.linkedin.com/in/emmanuel-chirchir/)
+- Email: [email](chirchir7370@gmail.com)
+
 ## screenshots
 
 ### register
@@ -40,15 +49,6 @@
 - update response jobs
 
 - `/api/jobs/response/:id`
-
-## Author Info
-
-##### follow me on
-
-- Github: [@githubhandle](https://github.com/chirchir12)
-- Twitter: [@twitterhandle](https://twitter.com/shadochir)
-- Linkedin: [linkedin](https://www.linkedin.com/in/emmanuel-chirchir/)
-- Email: [email](chirchir7370@gmail.com)
 
 ## Technologies used
 
