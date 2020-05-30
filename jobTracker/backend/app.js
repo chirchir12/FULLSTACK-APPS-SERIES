@@ -18,5 +18,5 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/api/job', JobRouter);
+app.use('/api/jobs', JobRouter);
 module.exports = app;
