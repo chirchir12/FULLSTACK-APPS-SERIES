@@ -11,5 +11,15 @@ exports.createJob = (req, res) => {
     .catch((error) => res.json(400).json({ ...error }));
 };
 // update
+exports.updateJob = (req, res) => {
+  const { title, company, site } = req.body;
+  if (!title || !company || !site) {
+    return res.status(400).json({ error: 'all fields are required' });
+  }
+  Job.update({ title, company, site }, { where: { id: +req.params.id } })
+    .then((updated) => res.status(200).json(updated))
+    .catch((error) => res.status(400).json(error));
+};
+// all
 // delete
 // put
