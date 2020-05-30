@@ -23,7 +23,12 @@ exports.updateJob = (req, res) => {
 // all
 exports.getALLJobs = (req, res) => {
   Job.findAll({ attributes: ['title', 'company', 'site', 'createdAt'] })
-    .then((jobs) => res.status(200).json(jobs))
+    .then((jobs) => {
+      if (jobs.length > 0) {
+        return res.status(200).json(jobs);
+      }
+      res.status(404).json({ message: 'no jobs added yet' });
+    })
     .catch((error) => res.status(404).json(error));
 };
 // delete
