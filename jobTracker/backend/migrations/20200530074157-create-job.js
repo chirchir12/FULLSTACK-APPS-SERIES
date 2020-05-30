@@ -28,6 +28,9 @@ module.exports = {
       link: {
         allowNull: false,
         type: Sequelize.STRING,
+        validate: {
+          isUrl: true,
+        },
       },
       createdAt: {
         allowNull: false,

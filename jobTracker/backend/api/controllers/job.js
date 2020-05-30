@@ -8,7 +8,7 @@ exports.createJob = (req, res) => {
   }
   Job.create({ title, company, site, link })
     .then((created) => res.status(201).json(created))
-    .catch((error) => res.json(400).json({ ...error }));
+    .catch((error) => res.status(400).json({ error }));
 };
 // update
 exports.updateJob = (req, res) => {
