@@ -7,12 +7,15 @@ function Input(props) {
       <input
         type={props.type}
         name={props.name}
+        value={props.value}
         className="form-control"
         id={props.id}
       />
-      <small id="emailHelp" className="form-text text-muted">
-        {props.smallText}
-      </small>
+      {props.smallText && (
+        <small id="emailHelp" className="form-text text-muted">
+          {props.smallText}
+        </small>
+      )}
     </div>
   );
 }
