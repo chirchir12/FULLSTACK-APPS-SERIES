@@ -21,5 +21,10 @@ exports.updateJob = (req, res) => {
     .catch((error) => res.status(400).json(error));
 };
 // all
+exports.getALLJobs = (req, res) => {
+  Job.findAll({ attributes: ['title', 'company', 'site', 'createdAt'] })
+    .then((jobs) => res.status(200).json(jobs))
+    .catch((error) => res.status(404).json(error));
+};
 // delete
 // put
