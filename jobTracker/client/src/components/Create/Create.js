@@ -6,7 +6,7 @@ function Create(props) {
     <div className="container">
       <div className="row mt-4">
         <div className="col 12 col-md-6 mx-auto">
-          <h1 className="h4">Create Job Entry</h1>
+          <h1 className="h4 text-center">Create Job Entry</h1>
           <div className="dropdown-divider"></div>
           <form className="mt-4">
             <Input

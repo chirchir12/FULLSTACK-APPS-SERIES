@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function Card(props) {
   return (
@@ -14,9 +15,12 @@ function Card(props) {
           <a href="#" className="btn btn-sm btn-outline-primary card-link">
             Visit Site
           </a>
-          <a href="#" className="btn btn-sm btn-outline-secondary card-link">
+          <Link
+            to="/job/update"
+            className="btn btn-sm btn-outline-secondary card-link"
+          >
             Update
-          </a>
+          </Link>
           <a href="#" className="btn btn-sm btn-outline-danger card-link">
             Delete Entry
           </a>
