@@ -23,6 +23,7 @@ module.exports = {
       response: {
         allowNull: false,
         type: Sequelize.BOOLEAN,
+        defaultValue: false,
       },
       createdAt: {
         allowNull: false,

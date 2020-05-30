@@ -1,4 +1,5 @@
 const express = require('express');
+const JobRouter = require('./api/routes/job');
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -17,4 +18,5 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use('/api/job', JobRouter);
 module.exports = app;
