@@ -45,9 +45,29 @@ exports.getALLJobs = (req, res) => {
     })
     .catch((error) => res.status(404).json(error));
 };
+
+exports.getSingleJobs = (req, res) => {
+  Job.findOne({
+    where: { id: +req.params.id },
+    attributes: [
+      'id',
+      'title',
+      'company',
+      'site',
+      'response',
+      'responsibility',
+      'link',
+      'createdAt',
+    ],
+  })
+    .then((jobs) => {
+      return res.status(200).json(jobs);
+    })
+    .catch((error) => res.status(404).json(error));
+};
 // delete
 exports.deleteJob = (req, res) => {
-  Job.destroy({ where: { id: req.body.id } })
+  Job.destroy({ where: { id: +req.params.id } })
     .then((obj) => res.status(200).json(obj))
     .catch((error) => res.json(400).json(error));
 };

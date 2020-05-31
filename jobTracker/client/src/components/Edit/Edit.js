@@ -1,32 +1,119 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Input from '../shared/Input/Input';
 import TextArea from '../shared/Input/TextArea';
+import { useToasts } from 'react-toast-notifications';
 
 function Edit(props) {
+  const { addToast } = useToasts();
+  const { id } = props.match.params;
+  const [Updatejob, setUpdateJob] = useState({});
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      try {
+        const res = await fetch(`http://localhost:5000/api/jobs/single/${id}`);
+        if (!res.ok) {
+          throw new Error('Network is unstable');
+        }
+        const json = await res.json();
+        setUpdateJob(json);
+        setIsLoading(false);
+      } catch (error) {
+        setError({
+          ...error,
+          message: 'We are experiencing trouble reaching server',
+        });
+      }
+    };
+    fetchData();
+  }, [id]);
+  const PutData = async () => {
+    setIsLoading(true);
+    try {
+      const res = await fetch(`http://localhost:5000/api/jobs/update/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(Updatejob),
+      });
+
+      if (!res.ok) {
+        throw new Error('Network is unstable');
+      }
+      setIsLoading(false);
+    } catch (error) {
+      setError({
+        ...error,
+        message: 'We are experiencing trouble reaching server',
+      });
+    }
+  };
+
+  // const handlechecked = (e) => {
+  //   if (e.target.checked) {
+  //     setUpdateJob(...)
+  //   }
+  //   return false;
+  // };
+
+  const handleChange = (event) => {
+    let target = event.target;
+    let name = target.name;
+    let value = target.type === 'checkbox' ? target.checked : target.value;
+    setUpdateJob({
+      ...Updatejob,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(Updatejob);
+    PutData();
+    if (!isLoading && !error) {
+      addToast('Job Entry has been updated', {
+        appearance: 'success',
+        autoDismiss: true,
+      });
+      setTimeout(() => {
+        window.location.reload();
+      }, 1500);
+    } else if (error) {
+      addToast('Error could not update the entry', {
+        appearance: 'error',
+        autoDismiss: true,
+      });
+    }
+  };
+
   return (
     <div className="container">
       <div className="row mt-4">
         <div className="col 12 col-md-7 mx-auto">
           <h1 className="h4 text-center">Update</h1>
           <div className="dropdown-divider"></div>
-          <form className="mt-4">
+          <form onSubmit={handleSubmit} className="mt-4">
             <div className="row">
               <div className="col-12 col-md-6">
                 <Input
                   label="Job Title"
                   type="text"
+                  onChange={handleChange}
                   name="title"
                   id="title"
-                  value="chirchir"
+                  value={Updatejob.title || ''}
                 />
               </div>
               <div className="col-12 col-md-6">
                 <Input
                   label="Company Name"
                   type="text"
+                  onChange={handleChange}
                   name="company"
                   id="company"
-                  value="company"
+                  value={Updatejob.company || ''}
                 />
               </div>
             </div>
@@ -35,40 +122,47 @@ function Edit(props) {
                 <Input
                   label="Link to Site"
                   type="url"
+                  onChange={handleChange}
                   name="link"
                   id="link"
-                  value=""
+                  value={Updatejob.link || ''}
                 />
               </div>
               <div className="col-12 col-md-6">
                 <Input
                   label="Site"
                   type="text"
+                  onChange={handleChange}
                   name="site"
                   id="site"
-                  value="Indded"
+                  value={Updatejob.site || ''}
                   smallText="where did you hear this job?"
                 />
               </div>
             </div>
             <TextArea
               label="Responsibility"
-              value=""
+              onChange={handleChange}
+              value={Updatejob.responsibility || ''}
               name="responsibility"
               id="responsibilitt"
               rows="4"
             />
-            <div class="form-group form-check">
+            <div className="form-group form-check">
               <input
                 type="checkbox"
+                onChange={handleChange}
+                name="response"
                 className="form-check-input"
                 id="exampleCheck1"
+                value={Updatejob.response}
+                checked={Updatejob.response ? true : false}
               />
               <label className="form-check-label" htmlFor="exampleCheck1">
                 Responded Yet ?
               </label>
             </div>
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" className="btn btn-primary">
               Update
             </button>
           </form>

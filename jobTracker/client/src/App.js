@@ -13,7 +13,7 @@ function App() {
         <NavBar />
         <Switch>
           <Route exact path="/job/create" component={Create} />
-          <Route exact path="/job/update" component={Edit} />
+          <Route exact path="/job/update/:id" component={Edit} />
           <Route exact path="/" component={Home} />
         </Switch>
       </Router>

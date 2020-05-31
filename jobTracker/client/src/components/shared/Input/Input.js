@@ -3,7 +3,7 @@ import React from 'react';
 function Input(props) {
   return (
     <div className="form-group">
-      <label for="exampleInputEmail1">{props.label}</label>
+      <label htmlFor="exampleInputEmail1">{props.label}</label>
       <input
         type={props.type}
         name={props.name}

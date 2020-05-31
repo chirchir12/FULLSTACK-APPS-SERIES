@@ -10,11 +10,11 @@ import JobContextProvider from './context/JobContext';
 import { ToastProvider } from 'react-toast-notifications';
 ReactDOM.render(
   <React.StrictMode>
-    <JobContextProvider>
-      <ToastProvider>
+    <ToastProvider>
+      <JobContextProvider>
         <App />
-      </ToastProvider>
-    </JobContextProvider>
+      </JobContextProvider>
+    </ToastProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

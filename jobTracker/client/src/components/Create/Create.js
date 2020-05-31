@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Input from '../shared/Input/Input';
 import TextArea from '../shared/Input/TextArea';
-import { ToastProvider, useToasts } from 'react-toast-notifications';
+import { useToasts } from 'react-toast-notifications';
 
 function Create(props) {
   const { addToast } = useToasts();
@@ -20,7 +20,6 @@ function Create(props) {
       if (!res.ok) {
         throw new Error('Network is unstable');
       }
-      const json = await res.json();
       setIsLoading(false);
     } catch (error) {
       setError({
@@ -43,7 +42,7 @@ function Create(props) {
       });
       setTimeout(() => {
         window.location.reload();
-      }, 2000);
+      }, 4000);
     } else if (error) {
     }
   };

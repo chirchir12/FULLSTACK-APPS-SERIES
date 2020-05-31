@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import moment from 'moment';
 import truncate from 'truncate';
 import { Link } from 'react-router-dom';
+import { JobContext } from '../../../context/JobContext';
 
 function Card(props) {
-  let { id, title, company, response, responsibility, createdAt } = props.job;
+  const { deleteEntry } = useContext(JobContext);
+  let {
+    id,
+    title,
+    company,
+    response,
+    link,
+    responsibility,
+    createdAt,
+  } = props.job;
   createdAt = moment.utc(createdAt).local().format('DD-MM-YYYY');
   return (
     <div className="col-12 col-md-4 mb-4">
@@ -13,18 +23,26 @@ function Card(props) {
           <h5 className="card-title">{title}</h5>
           <h6 className="card-subtitle mb-2 text-muted">{company}</h6>
           <p className="card-text">{truncate(responsibility, 220)}</p>
-          <a href="#" className="btn btn-sm btn-outline-primary card-link">
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href={link}
+            className="btn btn-sm btn-outline-primary card-link"
+          >
             Visit Site
           </a>
           <Link
-            to="/job/update"
+            to={`/job/update/${+id}`}
             className="btn btn-sm btn-outline-secondary card-link"
           >
             Update
           </Link>
-          <a href="#" className="btn btn-sm btn-outline-danger card-link">
+          <button
+            onClick={() => deleteEntry(id)}
+            className="btn btn-sm btn-outline-danger card-link"
+          >
             Delete Entry
-          </a>
+          </button>
         </div>
         <div className="card-footer text-muted d-flex justify-content-between">
           <span>
