@@ -32,6 +32,7 @@ exports.getALLJobs = (req, res) => {
       'company',
       'site',
       'response',
+      'responsibility',
       'link',
       'createdAt',
     ],

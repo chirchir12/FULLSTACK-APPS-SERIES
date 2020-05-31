@@ -10,7 +10,7 @@ function List(props) {
   return (
     <>
       {jobs && jobs.length > 0 ? (
-        jobs.map((item, idx) => <Card key={idx} item={item} />)
+        jobs.map((job) => <Card key={job.id} job={job} />)
       ) : (
         <h5>no job entry made</h5>
       )}
