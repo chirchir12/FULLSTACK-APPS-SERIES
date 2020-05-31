@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
+
 export const JobContext = createContext();
 
 function JobContextProvider(props) {

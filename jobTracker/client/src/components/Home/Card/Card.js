@@ -1,8 +1,10 @@
 import React from 'react';
+import moment from 'moment';
 import { Link } from 'react-router-dom';
 
 function Card(props) {
-  const { id, title, company, response, responsibility, createdAt } = props.job;
+  let { id, title, company, response, responsibility, createdAt } = props.job;
+  createdAt = moment.utc(createdAt).local().format('DD-MM-YYYY');
   return (
     <div className="col-12 col-md-4 mb-4">
       <div className="card">
@@ -24,7 +26,9 @@ function Card(props) {
           </a>
         </div>
         <div className="card-footer text-muted d-flex justify-content-between">
-          <span>{createdAt}</span>
+          <span>
+            applied on <b>{createdAt}</b>
+          </span>
           <span>
             responded?{' '}
             {response ? (
