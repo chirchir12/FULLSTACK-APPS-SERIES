@@ -2,21 +2,24 @@ const Job = require('../../models').Job;
 
 //create
 exports.createJob = (req, res) => {
-  const { title, company, site, link } = req.body;
-  if (!title || !company || !site || !link) {
+  const { title, company, site, link, responsibility } = req.body;
+  if (!title || !company || !site || !link || !responsibility) {
     return res.status(400).json({ error: 'all fields are required' });
   }
-  Job.create({ title, company, site, link })
+  Job.create({ title, company, site, link, responsibility })
     .then((created) => res.status(201).json(created))
     .catch((error) => res.status(400).json({ error }));
 };
 // update
 exports.updateJob = (req, res) => {
-  const { title, company, site } = req.body;
+  const { title, company, site, response, responsibility } = req.body;
   if (!title || !company || !site) {
     return res.status(400).json({ error: 'all fields are required' });
   }
-  Job.update({ title, company, site }, { where: { id: +req.params.id } })
+  Job.update(
+    { title, company, site, response, responsibility },
+    { where: { id: +req.params.id } }
+  )
     .then((updated) => res.status(200).json(updated))
     .catch((error) => res.status(400).json(error));
 };

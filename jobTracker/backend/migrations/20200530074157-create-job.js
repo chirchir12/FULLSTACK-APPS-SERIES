@@ -20,6 +20,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
+      responsibility: {
+        allowNull: false,
+        type: Sequelize.TEXT,
+      },
       response: {
         allowNull: false,
         type: Sequelize.BOOLEAN,
