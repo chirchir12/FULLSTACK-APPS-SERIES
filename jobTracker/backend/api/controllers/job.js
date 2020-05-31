@@ -23,7 +23,15 @@ exports.updateJob = (req, res) => {
 // all
 exports.getALLJobs = (req, res) => {
   Job.findAll({
-    attributes: ['id', 'title', 'company', 'site', 'response', 'createdAt'],
+    attributes: [
+      'id',
+      'title',
+      'company',
+      'site',
+      'response',
+      'link',
+      'createdAt',
+    ],
   })
     .then((jobs) => {
       if (jobs.length > 0) {
