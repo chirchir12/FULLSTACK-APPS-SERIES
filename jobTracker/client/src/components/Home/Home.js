@@ -4,7 +4,6 @@ import { JobContext } from '../../context/JobContext';
 
 function Home(props) {
   const { error } = useContext(JobContext);
-  console.log(error);
   return (
     <div className="container">
       <div className="row my-4">

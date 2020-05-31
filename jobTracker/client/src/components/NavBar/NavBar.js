@@ -4,7 +4,6 @@ import { JobContext } from '../../context/JobContext';
 
 function NavBar(props) {
   const { jobs } = useContext(JobContext);
-  console.log(jobs);
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-primary">
       <div className="container">

@@ -28,7 +28,7 @@ function Card(props) {
         <div className="card-footer text-muted d-flex justify-content-between">
           <span>23/05/2020</span>
           <span>
-            responsed? <i class="fas fa-check-double text-primary"></i>
+            responsed? <i className="fas fa-check-double text-primary"></i>
           </span>
         </div>
       </div>
