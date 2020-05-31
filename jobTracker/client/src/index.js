@@ -4,9 +4,12 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import JobContextProvider from './context/JobContext';
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <JobContextProvider>
+      <App />
+    </JobContextProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

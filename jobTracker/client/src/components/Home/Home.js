@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import List from './List/List';
+import { JobContext } from '../../context/JobContext';
 
 function Home(props) {
+  const { error } = useContext(JobContext);
+  console.log(error);
   return (
     <div className="container">
       <div className="row my-4">
@@ -23,7 +26,13 @@ function Home(props) {
         </div>
       </div>
       <div className="row">
-        <List />
+        {!error ? (
+          <List />
+        ) : (
+          <div className="alert alert-warning" role="alert">
+            {error.message}
+          </div>
+        )}
       </div>
     </div>
   );

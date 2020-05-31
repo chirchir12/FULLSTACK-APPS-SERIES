@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { JobContext } from '../../context/JobContext';
 
 function NavBar(props) {
+  const { jobs } = useContext(JobContext);
+  console.log(jobs);
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-primary">
       <div className="container">
         <span className="navbar-brand text-light">
-          Jobs Tracked <sup class="badge badge-light text-danger">4</sup>
+          Jobs Tracked{' '}
+          <sup className="badge badge-light text-danger">
+            {jobs && jobs.length > 0 ? jobs.length : 0}
+          </sup>
         </span>
         <button
           className="navbar-toggler"
