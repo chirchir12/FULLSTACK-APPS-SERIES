@@ -9,7 +9,9 @@ function Input(props) {
         name={props.name}
         value={props.value}
         className="form-control"
+        onChange={props.onChange}
         id={props.id}
+        required
       />
       {props.smallText && (
         <small id="emailHelp" className="form-text text-muted">

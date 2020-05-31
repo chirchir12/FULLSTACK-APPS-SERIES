@@ -1,15 +1,60 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Input from '../shared/Input/Input';
 import TextArea from '../shared/Input/TextArea';
+import { ToastProvider, useToasts } from 'react-toast-notifications';
 
 function Create(props) {
+  const { addToast } = useToasts();
+  const [createjob, setCreateJob] = useState({});
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const fetchData = async () => {
+    setIsLoading(true);
+    try {
+      const res = await fetch('http://localhost:5000/api/jobs/create', {
+        method: 'Post',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(createjob),
+      });
+      if (!res.ok) {
+        throw new Error('Network is unstable');
+      }
+      const json = await res.json();
+      setIsLoading(false);
+    } catch (error) {
+      setError({
+        ...error,
+        message: 'We are experiencing trouble reaching server',
+      });
+    }
+  };
+  const handleChange = (e) => {
+    setCreateJob({ ...createjob, [e.target.name]: e.target.value });
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(createjob);
+    fetchData();
+    if (!isLoading && !error) {
+      addToast('Job Entry has been added', {
+        appearance: 'success',
+        autoDismiss: true,
+      });
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    } else if (error) {
+    }
+  };
+
   return (
     <div className="container">
       <div className="row mt-4">
         <div className="col 12 col-md-7 mx-auto">
           <h1 className="h4 text-center">Create Job Entry</h1>
           <div className="dropdown-divider"></div>
-          <form className="mt-4">
+          <form onSubmit={handleSubmit} className="mt-4">
             <div className="row">
               <div className="col-12 col-md-6">
                 <Input
@@ -17,7 +62,8 @@ function Create(props) {
                   type="text"
                   name="title"
                   id="title"
-                  value="chirchir"
+                  onChange={handleChange}
+                  value={createjob.title || ''}
                 />
               </div>
               <div className="col-12 col-md-6">
@@ -26,7 +72,8 @@ function Create(props) {
                   type="text"
                   name="company"
                   id="company"
-                  value="company"
+                  onChange={handleChange}
+                  value={createjob.company || ''}
                 />
               </div>
             </div>
@@ -37,7 +84,8 @@ function Create(props) {
                   type="url"
                   name="link"
                   id="link"
-                  value=""
+                  onChange={handleChange}
+                  value={createjob.link || ''}
                 />
               </div>
               <div className="col-12 col-md-6">
@@ -46,20 +94,22 @@ function Create(props) {
                   type="text"
                   name="site"
                   id="site"
-                  value="Indded"
+                  onChange={handleChange}
+                  value={createjob.site || ''}
                   smallText="where did you hear this job?"
                 />
               </div>
             </div>
             <TextArea
               label="Responsibility"
-              value=""
+              value={createjob.responsibility || ''}
               name="responsibility"
+              onChange={handleChange}
               id="responsibilitt"
               rows="4"
             />
             <button type="submit" class="btn btn-primary">
-              Create
+              {isLoading ? 'loading..' : 'Create'}
             </button>
           </form>
         </div>
