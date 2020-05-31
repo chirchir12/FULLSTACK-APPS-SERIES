@@ -8,6 +8,7 @@ function TextArea(props) {
         value={props.value}
         class="form-control"
         id={props.id}
+        name={props.name}
         rows={props.rows}
       ></textarea>
     </div>
