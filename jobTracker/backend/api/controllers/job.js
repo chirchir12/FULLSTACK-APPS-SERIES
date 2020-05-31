@@ -38,10 +38,7 @@ exports.getALLJobs = (req, res) => {
     ],
   })
     .then((jobs) => {
-      if (jobs.length > 0) {
-        return res.status(200).json(jobs);
-      }
-      res.status(404).json({ message: 'no jobs added yet' });
+      return res.status(200).json(jobs);
     })
     .catch((error) => res.status(404).json(error));
 };

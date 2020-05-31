@@ -8,22 +8,33 @@ function JobContextProvider(props) {
   const [error, setError] = React.useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const fetchData = async () => {
+  const fetchData = () => {
     setIsLoading(true);
-    try {
-      const res = await fetch('http://localhost:5000/api/jobs');
-      if (!res.ok) {
-        throw new Error('Network is unstable');
-      }
-      const json = await res.json();
-      setjobs(json);
-      setIsLoading(false);
-    } catch (error) {
-      setError({
-        ...error,
-        message: 'We are experiencing trouble reaching server',
+    fetch('http://localhost:5000/api/jobs')
+      .then((res) => {
+        console.log('hello', res);
+        if (!res.ok) {
+          throw new Error('no data has been added');
+        }
+        return res;
+      })
+      .then((res) => {
+        if (!res) {
+          return res;
+        }
+        console.log(res);
+        return res.json();
+      })
+      .then((results) => {
+        setjobs(results);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.log(error, 'is the error');
+        setError({
+          error,
+        });
       });
-    }
   };
   useEffect(() => {
     fetchData();
@@ -51,7 +62,9 @@ function JobContextProvider(props) {
       .catch((error) => console.log('delete error', error));
   };
   return (
-    <JobContext.Provider value={{ jobs, error, isLoading, deleteEntry }}>
+    <JobContext.Provider
+      value={{ jobs, error, isLoading, fetchData, deleteEntry }}
+    >
       {props.children}
     </JobContext.Provider>
   );

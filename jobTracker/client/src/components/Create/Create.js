@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Input from '../shared/Input/Input';
 import TextArea from '../shared/Input/TextArea';
 import { useToasts } from 'react-toast-notifications';
+import { JobContext } from '../../context/JobContext';
 
 function Create(props) {
+  const { fetchData } = useContext(JobContext);
   const { addToast } = useToasts();
   const [createjob, setCreateJob] = useState({});
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const fetchData = async () => {
+  const postData = async () => {
     setIsLoading(true);
     try {
       const res = await fetch('http://localhost:5000/api/jobs/create', {
@@ -34,15 +36,14 @@ function Create(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(createjob);
+    postData();
     fetchData();
     if (!isLoading && !error) {
       addToast('Job Entry has been added', {
         appearance: 'success',
         autoDismiss: true,
       });
-      setTimeout(() => {
-        window.location.reload();
-      }, 4000);
+      setCreateJob({});
     } else if (error) {
     }
   };
@@ -107,7 +108,7 @@ function Create(props) {
               id="responsibilitt"
               rows="4"
             />
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" className="btn btn-primary">
               {isLoading ? 'loading..' : 'Create'}
             </button>
           </form>
