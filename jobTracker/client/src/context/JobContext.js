@@ -5,6 +5,7 @@ export const JobContext = createContext();
 function JobContextProvider(props) {
   const { addToast } = useToasts();
   const [jobs, setjobs] = useState(null);
+  const [Searchjobs, setSearchjobs] = useState(null);
   const [error, setError] = React.useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -30,7 +31,7 @@ function JobContextProvider(props) {
         setIsLoading(false);
       })
       .catch((error) => {
-        console.log(error, 'is the error');
+        console.log(error.error, 'is the error');
         setError({
           error,
         });
@@ -63,7 +64,16 @@ function JobContextProvider(props) {
   };
   return (
     <JobContext.Provider
-      value={{ jobs, error, isLoading, fetchData, deleteEntry }}
+      value={{
+        jobs,
+        error,
+        isLoading,
+        setjobs,
+        Searchjobs,
+        setSearchjobs,
+        fetchData,
+        deleteEntry,
+      }}
     >
       {props.children}
     </JobContext.Provider>

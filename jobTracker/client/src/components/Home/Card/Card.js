@@ -20,8 +20,10 @@ function Card(props) {
     <div className="col-12 col-md-4 mb-4">
       <div className="card">
         <div className="card-body">
-          <h5 className="card-title">{title}</h5>
-          <h6 className="card-subtitle mb-2 text-muted">{company}</h6>
+          <h5 className="card-title">{truncate(title, 30)}</h5>
+          <h6 className="card-subtitle mb-2 text-muted">
+            {truncate(company, 30)}
+          </h6>
           <p className="card-text">{truncate(responsibility, 220)}</p>
           <a
             target="_blank"
