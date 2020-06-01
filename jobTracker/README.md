@@ -1,15 +1,23 @@
 # JOB TRACKER USING REACT AND NODE JS
 
+this is a simple project to enable you keep track of all the jobs you have applied.
+
 ## Goals & Achievements
 
 - create a restful application using node express
 - use sequelize to manage databases
 - form validation and error handling
+- search functionality to search job entry based on the title
 - create client side application that consumes a restful api
 - work with -sequelize-cli
 - work with react router
 
 ## getting started
+
+1. clone repo
+2. cd to jobTracker
+3. cd to backend and run `nodemon server'
+4. cd to client and run `npm start`
 
 ## Author Info
 
@@ -22,17 +30,21 @@
 
 ## screenshots
 
-### register
+### List of jobs
 
-![screenshot](screenshots/register.png)
+![screenshot](screenshots/list.png)
 
-### dashboard
+### Search List
 
-![screenshot](screenshots/dashboard.png)
+![screenshot](screenshots/search.png)
 
-### update
+### Update
 
 ![screenshot](screenshots/update.png)
+
+### Create
+
+![screenshot](screenshots/create.png)
 
 ## end points
 
@@ -43,7 +55,7 @@
 - update job
   - `/api/jobs/update/:id`
   - delete problems
-  - `/api/jobs/delete`
+  - `/api/jobs/delete/:id`
 - get jobs
   - `/api/jobs`
 - update response jobs
