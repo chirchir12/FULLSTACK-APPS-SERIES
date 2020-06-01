@@ -11,6 +11,7 @@ function TextArea(props) {
         name={props.name}
         onChange={props.onChange}
         rows={props.rows}
+        required
       ></textarea>
     </div>
   );

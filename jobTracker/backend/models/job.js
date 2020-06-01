@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       link: {
         allowNull: false,
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         validate: {
           isUrl: true,
         },

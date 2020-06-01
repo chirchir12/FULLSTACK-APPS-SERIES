@@ -31,7 +31,7 @@ module.exports = {
       },
       link: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
         validate: {
           isUrl: true,
         },

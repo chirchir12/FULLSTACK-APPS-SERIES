@@ -4,7 +4,8 @@ export const JobContext = createContext();
 
 function JobContextProvider(props) {
   const { addToast } = useToasts();
-  const [jobs, setjobs] = useState(null);
+  const [jobs, setjobs] = useState([]);
+  const [count, setCount] = useState(0);
   const [error, setError] = React.useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -12,7 +13,6 @@ function JobContextProvider(props) {
     setIsLoading(true);
     fetch('http://localhost:5000/api/jobs')
       .then((res) => {
-        console.log('hello', res);
         if (!res.ok) {
           throw new Error('no data has been added');
         }
@@ -22,15 +22,15 @@ function JobContextProvider(props) {
         if (!res) {
           return res;
         }
-        console.log(res);
         return res.json();
       })
       .then((results) => {
         setjobs(results);
+
         setIsLoading(false);
       })
       .catch((error) => {
-        console.log(error, 'is the error');
+        console.log(error.error, 'is the error');
         setError({
           error,
         });
@@ -63,7 +63,16 @@ function JobContextProvider(props) {
   };
   return (
     <JobContext.Provider
-      value={{ jobs, error, isLoading, fetchData, deleteEntry }}
+      value={{
+        jobs,
+        error,
+        isLoading,
+        setjobs,
+        count,
+        setCount,
+        fetchData,
+        deleteEntry,
+      }}
     >
       {props.children}
     </JobContext.Provider>

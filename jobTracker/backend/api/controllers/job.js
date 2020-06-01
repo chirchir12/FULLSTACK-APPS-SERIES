@@ -7,7 +7,24 @@ exports.createJob = (req, res) => {
     return res.status(400).json({ error: 'all fields are required' });
   }
   Job.create({ title, company, site, link, responsibility })
-    .then((created) => res.status(201).json(created))
+    .then((created) => {
+      Job.findAll({
+        attributes: [
+          'id',
+          'title',
+          'company',
+          'site',
+          'response',
+          'responsibility',
+          'link',
+          'createdAt',
+        ],
+      })
+        .then((jobs) => {
+          return res.status(200).json(jobs);
+        })
+        .catch((error) => res.status(404).json(error));
+    })
     .catch((error) => res.status(400).json({ error }));
 };
 // update
