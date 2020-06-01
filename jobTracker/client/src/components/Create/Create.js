@@ -5,46 +5,50 @@ import { useToasts } from 'react-toast-notifications';
 import { JobContext } from '../../context/JobContext';
 
 function Create(props) {
-  const { fetchData } = useContext(JobContext);
+  const { setjobs } = useContext(JobContext);
   const { addToast } = useToasts();
   const [createjob, setCreateJob] = useState({});
-  const [error, setError] = useState(null);
+  const [errorsss, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const postData = async () => {
+  const postData = () => {
     setIsLoading(true);
-    try {
-      const res = await fetch('http://localhost:5000/api/jobs/create', {
-        method: 'Post',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(createjob),
-      });
-      if (!res.ok) {
-        throw new Error('Network is unstable');
-      }
-      setIsLoading(false);
-    } catch (error) {
-      setError({
-        ...error,
-        message: 'We are experiencing trouble reaching server',
-      });
-    }
+    setError(false);
+    return fetch('http://localhost:5000/api/jobs/create', {
+      method: 'Post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(createjob),
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error('could not connect');
+        }
+        return res.json();
+      })
+      .then((results) => {
+        setjobs(results);
+        setIsLoading(false);
+      })
+      .catch((errr) => setError(console.log('my error', errr)));
   };
+
   const handleChange = (e) => {
     setCreateJob({ ...createjob, [e.target.name]: e.target.value });
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(createjob);
     postData();
-    fetchData();
-    if (!isLoading && !error) {
-      addToast('Job Entry has been added', {
-        appearance: 'success',
-        autoDismiss: true,
-      });
-      setCreateJob({});
-    } else if (error) {
+    console.log('my fucked submit', errorsss);
+    if (errorsss) {
+      console.log(errorsss);
+    } else {
+      if (!isLoading) {
+        addToast('Job Entry has been added', {
+          appearance: 'success',
+          autoDismiss: true,
+        });
+        setCreateJob({});
+      }
     }
   };
 
