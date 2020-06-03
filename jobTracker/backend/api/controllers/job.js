@@ -1,10 +1,11 @@
+const createError = require('http-errors');
 const Job = require('../../models').Job;
 
 //create
-exports.createJob = (req, res) => {
+exports.createJob = (req, res, next) => {
   const { title, company, site, link, responsibility } = req.body;
   if (!title || !company || !site || !link || !responsibility) {
-    return res.status(400).json({ error: 'all fields are required' });
+    throw createError(400, 'all fields are required');
   }
   Job.create({ title, company, site, link, responsibility })
     .then((created) => {
@@ -21,11 +22,20 @@ exports.createJob = (req, res) => {
         ],
       })
         .then((jobs) => {
+          if (!jobs) {
+            throw createError(404, 'No jobs found');
+          }
           return res.status(200).json(jobs);
         })
-        .catch((error) => res.status(404).json(error));
+        .catch((error) => next(error));
     })
-    .catch((error) => res.status(400).json({ error }));
+    .catch((error) => {
+      if (error.name == 'SequelizeValidationError') {
+        next(createError(400, error.message));
+        return;
+      }
+      next(error);
+    });
 };
 // update
 exports.updateJob = (req, res) => {
