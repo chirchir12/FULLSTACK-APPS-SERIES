@@ -38,20 +38,20 @@ exports.createJob = (req, res, next) => {
     });
 };
 // update
-exports.updateJob = (req, res) => {
+exports.updateJob = (req, res, next) => {
   const { title, company, site, response, responsibility } = req.body;
   if (!title || !company || !site) {
-    return res.status(400).json({ error: 'all fields are required' });
+    throw createError(400, 'all fields are required');
   }
   Job.update(
     { title, company, site, response, responsibility },
     { where: { id: +req.params.id } }
   )
     .then((updated) => res.status(200).json(updated))
-    .catch((error) => res.status(400).json(error));
+    .catch((error) => next(error));
 };
 // all
-exports.getALLJobs = (req, res) => {
+exports.getALLJobs = (req, res, next) => {
   Job.findAll({
     attributes: [
       'id',
@@ -65,12 +65,15 @@ exports.getALLJobs = (req, res) => {
     ],
   })
     .then((jobs) => {
+      if (!jobs) {
+        throw createError(404, 'jobs not found');
+      }
       return res.status(200).json(jobs);
     })
-    .catch((error) => res.status(404).json(error));
+    .catch((error) => next(error));
 };
 
-exports.getSingleJobs = (req, res) => {
+exports.getSingleJobs = (req, res, next) => {
   Job.findOne({
     where: { id: +req.params.id },
     attributes: [
@@ -85,20 +88,23 @@ exports.getSingleJobs = (req, res) => {
     ],
   })
     .then((jobs) => {
+      if (!jobs) {
+        throw createError(404, 'job not found');
+      }
       return res.status(200).json(jobs);
     })
-    .catch((error) => res.status(404).json(error));
+    .catch((error) => next(error));
 };
 // delete
-exports.deleteJob = (req, res) => {
+exports.deleteJob = (req, res, next) => {
   Job.destroy({ where: { id: +req.params.id } })
     .then((obj) => res.status(200).json(obj))
-    .catch((error) => res.json(400).json(error));
+    .catch((error) => next(createError(404, 'not found')));
 };
 // patch
-exports.updateResponse = (req, res) => {
+exports.updateResponse = (req, res, next) => {
   const { response } = req.body;
   Job.update({ response }, { where: { id: +req.params.id } })
     .then((updated) => res.status(200).json(updated))
-    .catch((error) => res.status(400).json(error));
+    .catch((error) => next(createError(400, 'something happended')));
 };
