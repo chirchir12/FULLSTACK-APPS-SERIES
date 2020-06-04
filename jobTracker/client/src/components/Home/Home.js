@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import List from './List/List';
 import { JobContext } from '../../context/JobContext';
 import Error from '../shared/Error/Error';

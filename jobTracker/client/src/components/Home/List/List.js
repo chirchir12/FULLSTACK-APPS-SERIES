@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import Card from '../Card/Card';
-import { JobContext } from '../../../context/JobContext';
+
 function List(props) {
   const { Searchjobs } = props;
 
