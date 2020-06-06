@@ -8,12 +8,11 @@ function Create(props) {
   const { setjobs } = useContext(JobContext);
   const { addToast } = useToasts();
   const [createjob, setCreateJob] = useState({});
-  const [errorsss, setError] = useState(false);
+  const [error, setError] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
   const postData = () => {
     setIsLoading(true);
-    setError(false);
     return fetch('http://localhost:5000/api/jobs/create', {
       method: 'Post',
       headers: { 'Content-Type': 'application/json' },
@@ -21,7 +20,8 @@ function Create(props) {
     })
       .then((res) => {
         if (!res.ok) {
-          throw new Error('could not connect');
+          console.log(res);
+          throw Error(res.statusText);
         }
         return res.json();
       })
@@ -29,7 +29,15 @@ function Create(props) {
         setjobs(results);
         setIsLoading(false);
       })
-      .catch((errr) => setError(console.log('my error', errr)));
+      .catch((err) => {
+        if (error.name === 'TypeError') {
+          console.log('Network failure');
+          setError({ message: 'Network failures' });
+          console.log(error);
+        }
+        setError({ error: true });
+        console.log(error);
+      });
   };
 
   const handleChange = (e) => {
@@ -38,9 +46,9 @@ function Create(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     postData();
-    console.log('my fucked submit', errorsss);
-    if (errorsss) {
-      console.log(errorsss);
+    console.log('my fucked submit', error);
+    if (error) {
+      console.log(error);
     } else {
       if (!isLoading) {
         addToast('Job Entry has been added', {

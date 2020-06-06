@@ -27,12 +27,10 @@ function Edit(props) {
         return response.json();
       })
       .then((results) => {
-        console.log(results, ' is here men');
         setUpdateJob(results);
         setIsLoading(false);
       })
       .catch((error) => {
-        console.log(error);
         setError(error);
       });
   }, [id]);
