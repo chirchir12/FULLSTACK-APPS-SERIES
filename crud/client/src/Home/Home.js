@@ -2,8 +2,13 @@ import React, { useContext } from 'react';
 import Item from './Item';
 import { DataContext } from '../Context/DataContext';
 function Home(props) {
-  const { employees } = useContext(DataContext);
+  const { employees, error, isLoading } = useContext(DataContext);
   console.log(employees);
+  if (error) {
+    return error && <h1>{error.statusText}</h1>;
+  } else if (isLoading) {
+    return <h1>loading...</h1>;
+  }
   return (
     <div>
       <h1>All Employees</h1>
