@@ -1,4 +1,5 @@
 const Employee = require('../../models').Employee;
+const createError = require('http-errors');
 
 exports.createEmployee = (req, res) => {
   console.log(req.body);
@@ -9,12 +10,18 @@ exports.createEmployee = (req, res) => {
     .catch((error) => res.status(400).json({ error: error }));
 };
 
-exports.getAllEmployees = (req, res) => {
+exports.getAllEmployees = (req, res, next) => {
   return Employee.findAll({
     attributes: ['id', 'firstName', 'lastName', 'email', 'phone', 'address'],
   })
-    .then((allEmployees) => res.status(200).json(allEmployees))
-    .catch((error) => res.status(404).json({ errors: error }));
+    .then((allEmployees) => {
+      if (!allEmployees.length > 0) {
+        console.log(allEmployees, 'were here');
+        throw createError(404, 'not found');
+      }
+      return res.status(200).json(allEmployees);
+    })
+    .catch((error) => next(error));
 };
 
 exports.getEmployee = (req, res) => {
