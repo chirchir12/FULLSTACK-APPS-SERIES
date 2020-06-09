@@ -27,7 +27,18 @@ function DataContextProvider(props) {
         setEmployees(results);
         setIsLoading(false);
       })
-      .catch((error) => setError(error));
+      .catch((err) => {
+        console.log(err);
+        if (err.name === 'TypeError') {
+          // const obj = (err['message'] = 'Internal Server Error');
+          err = {
+            message: 'Internal Server Error',
+          };
+          setError(err);
+          return;
+        }
+        return setError(err);
+      }); // network error
   }, []);
 
   // save data
@@ -40,8 +51,29 @@ function DataContextProvider(props) {
       },
       body: JSON.stringify(employee),
     })
-      .then(() => ({ message: 'data has been saved' }))
-      .catch((error) => ({ error: error }));
+      .then(() => {
+        setIsLoading(true);
+        fetch('http://localhost:5000/api/employees')
+          .then((res) => {
+            // when response faile
+            if (!res.ok) {
+              console.log(res);
+              return Promise.reject({
+                status: res.status,
+                statusText: res.statusText,
+              });
+            }
+            console.log(res);
+            return res;
+          })
+          .then((res) => res.json())
+          .then((results) => {
+            setEmployees(results);
+            setIsLoading(false);
+          })
+          .catch((error) => setError(error));
+      })
+      .catch((error) => console.log(error));
   };
 
   // find single data
