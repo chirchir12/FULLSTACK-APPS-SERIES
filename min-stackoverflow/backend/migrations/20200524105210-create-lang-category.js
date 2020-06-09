@@ -10,6 +10,7 @@ module.exports = {
         defaultValue: Sequelize.UUIDV4,
       },
       name: {
+        allowNull: false,
         type: Sequelize.STRING,
       },
       createdAt: {
