@@ -1,12 +1,19 @@
 const Solution = require('../../models').Solution;
+const createError = require('http-errors');
 
-exports.createSolution = (req, res) => {
+exports.createSolution = (req, res, next) => {
   Solution.create({
     ...req.body,
-    userId: '61bf808c-a31f-4406-821e-689726808402',
+    userId: req.user.id,
   })
-    .then((created) => res.status(201).json({ created }))
-    .catch((error) => res.status(400).json({ error: error }));
+    .then((created) => res.status(201).send({ created }))
+    .catch((error) => {
+      if (error.name == 'SequelizeValidationError') {
+        next(createError(400, error.message));
+        return;
+      }
+      next(error);
+    });
 };
 
 exports.updateSolution = async (req, res) => {

@@ -49,7 +49,7 @@ exports.loginUser = async (req, res, next) => {
     { expiresIn: '86400s' }
   );
   //4. authourize
-  return res.status(200).json({
+  return res.status(200).send({
     user: {
       id: userExist.dataValues.id,
       firstName: userExist.dataValues.firstName,
