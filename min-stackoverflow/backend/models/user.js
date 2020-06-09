@@ -15,21 +15,29 @@ module.exports = (sequelize, DataTypes) => {
       firstName: {
         allowNull: false,
         validate: {
-          is: ['^[a-z]+$', 'i'],
+          is: {
+            args: ['^[a-z]+$', 'i'],
+            msg: 'FirstName is required',
+          },
         },
         type: DataTypes.STRING,
       },
       lastName: {
         allowNull: false,
         validate: {
-          is: ['^[a-z]+$', 'i'],
+          is: {
+            args: ['^[a-z]+$', 'i'],
+            msg: 'LastName is required',
+          },
         },
         type: DataTypes.STRING,
       },
       email: {
         allowNull: false,
         validate: {
-          isEmail: true,
+          isEmail: {
+            msg: 'Email is required',
+          },
         },
         type: DataTypes.STRING,
       },
