@@ -18,17 +18,19 @@ exports.registerUser = (req, res, next) => {
     });
 };
 
-exports.loginUser = async (req, res) => {
+exports.loginUser = async (req, res, next) => {
   //1, check user email if exist
   const { email, password } = req.body;
-  if (!email && !password) {
-    return res.status(401).json({ error: 'Fields are required' });
+  if (!email || !password) {
+    const error = createError(400, 'All fields are required');
+    next(error);
+    return;
   }
   const userExist = await User.findOne({ where: { email: email } });
   if (!userExist) {
-    return res
-      .status(401)
-      .json({ error: 'User with this email does not exist' });
+    const error = createError(401, 'User with this email does not exit');
+    next(error);
+    return;
   }
   //2. compare password
   const passwordMatch = await bcrypt.compare(
@@ -36,7 +38,9 @@ exports.loginUser = async (req, res) => {
     userExist.dataValues.password
   );
   if (!passwordMatch) {
-    return res.status(401).json({ error: 'Password is wrong' });
+    const error = createError(401, 'Password given is wrong');
+    next(error);
+    return;
   }
   //3. create access token
   const token = jwt.sign(
