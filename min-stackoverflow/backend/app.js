@@ -27,4 +27,15 @@ app.use('/api/languages', LanguageRoute);
 app.use('/api/problems', ProblemRoute);
 app.use('/api/solution', SolutionRoute);
 
+// handling errors defined last
+app.use((err, req, res, next) => {
+  //set error
+  res.status(err.status || 500);
+  res.json({
+    error: {
+      status: err.status || 500,
+      message: err.message,
+    },
+  });
+});
 module.exports = app;
