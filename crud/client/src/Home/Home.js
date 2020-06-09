@@ -4,8 +4,10 @@ import { DataContext } from '../Context/DataContext';
 function Home(props) {
   const { employees, error, isLoading } = useContext(DataContext);
   console.log(employees);
+
   if (error) {
-    return error && <h1>{error.statusText}</h1>;
+    console.log(error.message);
+    return error && <h1>{error.statusText || error.message}</h1>;
   } else if (isLoading) {
     return <h1>loading...</h1>;
   }
