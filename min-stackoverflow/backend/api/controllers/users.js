@@ -1,17 +1,21 @@
 const bcrypt = require('bcrypt');
+const createError = require('http-errors');
 const jwt = require('jsonwebtoken');
 const User = require('../../models').User;
 require('dotenv').config();
 
-exports.registerUser = (req, res) => {
+exports.registerUser = (req, res, next) => {
   User.create(req.body)
     .then((createdUser) => {
-      return res.status(201).json({
-        user: createdUser,
-        message: 'user created successfully',
-      });
+      return res.status(201).send(createdUser);
     })
-    .catch((error) => res.status(400).json({ error: error }));
+    .catch((error) => {
+      if (error.name == 'SequelizeValidationError') {
+        next(createError(400, error.message));
+        return;
+      }
+      next(error);
+    });
 };
 
 exports.loginUser = async (req, res) => {
