@@ -42,13 +42,18 @@ exports.updateSolution = async (req, res, next) => {
   }
 };
 
-exports.deleteSolution = (req, res) => {
+exports.deleteSolution = (req, res, next) => {
   Solution.destroy({
     where: {
       id: req.params.id,
       userId: req.user.id,
     },
   })
-    .then(() => res.status(200).json({ message: 'record deleted' }))
-    .catch((error) => res.status(404).json({ error: error }));
+    .then((row) => {
+      if (!row) {
+        throw createError(404, 'not found');
+      }
+      res.status(200).send({ message: 'record deleted' });
+    })
+    .catch((error) => next(error));
 };
