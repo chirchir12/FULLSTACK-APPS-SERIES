@@ -16,7 +16,7 @@ exports.createSolution = (req, res, next) => {
     });
 };
 
-exports.updateSolution = async (req, res) => {
+exports.updateSolution = async (req, res, next) => {
   try {
     const solutionexit = await Solution.findOne({
       where: {
@@ -25,7 +25,7 @@ exports.updateSolution = async (req, res) => {
       },
     });
     if (!solutionexit) {
-      throw new Error('Language with this info does not exist');
+      throw createError(404, 'SOlution not found');
     }
     const solutionupdate = await Solution.update(req.body, {
       where: {
@@ -34,11 +34,11 @@ exports.updateSolution = async (req, res) => {
       },
     });
     if (!solutionupdate) {
-      throw new Error('Bad request');
+      throw createError(400, 'all fields are required');
     }
-    return res.status(200).json({ message: 'record updated successfully' });
+    return res.status(200).send({ message: 'record updated successfully' });
   } catch (error) {
-    return res.status(400).json(error);
+    next(error);
   }
 };
 
