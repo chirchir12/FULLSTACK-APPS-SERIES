@@ -5,17 +5,26 @@ const User = require('../../models').User;
 require('dotenv').config();
 
 exports.registerUser = (req, res, next) => {
-  User.create(req.body)
-    .then((createdUser) => {
-      return res.status(201).send(createdUser);
-    })
-    .catch((error) => {
-      if (error.name == 'SequelizeValidationError') {
-        next(createError(400, error.message));
-        return;
+  // check if email exist in email
+  const { email } = req.body;
+  User.findOne({ where: { email: email } })
+    .then((userExist) => {
+      if (userExist) {
+        throw createError(401, 'User with this email already exist');
       }
-      next(error);
-    });
+      User.create(req.body)
+        .then((createdUser) => {
+          return res.status(201).send(createdUser);
+        })
+        .catch((error) => {
+          if (error.name == 'SequelizeValidationError') {
+            next(createError(400, error.message));
+            return;
+          }
+          next(error);
+        });
+    })
+    .catch((error) => next(error));
 };
 
 exports.loginUser = async (req, res, next) => {
