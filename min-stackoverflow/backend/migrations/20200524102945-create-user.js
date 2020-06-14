@@ -10,15 +10,28 @@ module.exports = {
         defaultValue: Sequelize.UUIDV4,
       },
       firstName: {
+        allowNull: false,
+        validate: {
+          is: ['^[a-z]+$', 'i'],
+        },
         type: Sequelize.STRING,
       },
       lastName: {
+        allowNull: false,
+        validate: {
+          is: ['^[a-z]+$', 'i'],
+        },
         type: Sequelize.STRING,
       },
       email: {
+        allowNull: false,
+        validate: {
+          isEmail: true,
+        },
         type: Sequelize.STRING,
       },
       password: {
+        allowNull: false,
         type: Sequelize.STRING,
       },
       createdAt: {

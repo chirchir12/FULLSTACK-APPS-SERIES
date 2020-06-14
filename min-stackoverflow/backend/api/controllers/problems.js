@@ -1,39 +1,52 @@
+const createError = require('http-errors');
 const Problem = require('../../models').Problem;
 const Solution = require('../../models').Solution;
 const User = require('../../models').User;
 
 //1. create
-exports.createProblem = (req, res) => {
+exports.createProblem = (req, res, next) => {
   Problem.create({
     ...req.body,
     userId: req.user.id,
   })
-    .then((problemCreated) =>
-      res
-        .status(201)
-        .json({ problemCreated, message: 'problem created succesully' })
-    )
-    .catch((error) => res.status(400).json(error));
+    .then((problemCreated) => res.status(201).send(problemCreated))
+    .catch((error) => {
+      if (error.name == 'SequelizeValidationError') {
+        next(createError(400, error.message));
+        return;
+      }
+      next(error);
+    });
 };
 //2. get all
-exports.ProblemsList = (req, res) => {
+exports.ProblemsList = (req, res, next) => {
   Problem.findAll({
     include: [{ model: User }, { model: Solution, include: [User] }],
   })
-    .then((problems) => res.status(200).json(problems))
-    .catch((error) => res.status(404).json(error));
+    .then((problems) => {
+      if (!problems > 0) {
+        throw createError(404, 'not found');
+      }
+      res.status(200).send(problems);
+    })
+    .catch((error) => next(error));
 };
 //3. get single
-exports.getSingleProblem = (req, res) => {
+exports.getSingleProblem = (req, res, next) => {
   Problem.findOne({
     where: { id: req.params.id },
     include: [{ model: User }, { model: Solution, include: [User] }],
   })
-    .then((problem) => res.status(200).json(problem))
-    .catch((error) => res.status(404).json(error));
+    .then((problem) => {
+      if (!problem) {
+        throw createError(404, 'not found');
+      }
+      res.status(200).send(problem);
+    })
+    .catch((error) => next(error));
 };
 //4. update
-exports.updateProblem = async (req, res) => {
+exports.updateProblem = async (req, res, next) => {
   try {
     const Problemexist = await Problem.findOne({
       where: {
@@ -42,7 +55,7 @@ exports.updateProblem = async (req, res) => {
       },
     });
     if (!Problemexist) {
-      throw new Error('Language with this info does not exist');
+      throw createError(404, 'not found');
     }
     const Problemupdate = await Problem.update(req.body, {
       where: {
@@ -51,11 +64,15 @@ exports.updateProblem = async (req, res) => {
       },
     });
     if (!Problemupdate) {
-      throw new Error('Bad request');
+      throw createError(400, 'fields cannot be null');
     }
-    return res.status(200).json({ message: 'record updated successfully' });
+    return res.status(200).send({ message: 'record updated successfully' });
   } catch (error) {
-    return res.status(400).json(error);
+    if (error.name == 'SequelizeValidationError') {
+      next(createError(400, error.message));
+      return;
+    }
+    next(error);
   }
 };
 //5. delete
@@ -66,6 +83,11 @@ exports.deleteProblem = (req, res) => {
       userId: req.user.id,
     },
   })
-    .then(() => res.status(200).json({ message: 'record deleted' }))
-    .catch((error) => res.status(404).json({ error: error }));
+    .then((row) => {
+      if (!row) {
+        throw createError(404, 'not found');
+      }
+      res.status(200).send({ message: 'record deleted' });
+    })
+    .catch((error) => next(error));
 };

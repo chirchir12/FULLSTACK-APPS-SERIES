@@ -1,45 +1,52 @@
 const LangCategory = require('../../models').LangCategory;
+const createError = require('http-errors');
 
 //create
-exports.createLanguageCategory = (req, res) => {
+exports.createLanguageCategory = (req, res, next) => {
   LangCategory.create(req.body)
-    .then((created) =>
-      res.status(201).json({
-        created,
-        message: 'created successully',
-      })
-    )
+    .then((created) => res.status(201).send(created))
     .catch((error) => {
-      return res.status(400).json({
-        error: error,
-      });
+      if (error.name == 'SequelizeValidationError') {
+        next(createError(400, error.message));
+        return;
+      }
+      next(error);
     });
 };
 // list
-exports.languagesList = (req, res) => {
+exports.languagesList = (req, res, next) => {
   LangCategory.findAll({ attributes: ['name', 'id'] })
-    .then((languages) => res.status(200).json(languages))
-    .catch((error) => res.status(404).json({ error: error }));
+    .then((languages) => {
+      if (!languages > 0) {
+        throw createError(404, 'Not found');
+      }
+      res.status(200).send(languages);
+    })
+    .catch((error) => next(error));
 };
 
 // update
-exports.updateLanguage = async (req, res) => {
+exports.updateLanguage = async (req, res, next) => {
   try {
     const langaugeExist = await LangCategory.findOne({
       where: { id: req.params.id },
     });
     if (!langaugeExist) {
-      throw new Error('Language with this info does not exist');
+      throw createError(404, 'Not found');
     }
     const langaugeUpdate = await LangCategory.update(req.body, {
       where: { id: req.params.id },
     });
     if (!langaugeUpdate) {
-      throw new Error('Bad request');
+      throw createError(400, 'all fields are required');
     }
-    return res.status(200).json({ message: 'record updated successfully' });
+    return res.status(200).send({ message: 'record updated successfully' });
   } catch (error) {
-    return res.status(400).json(error);
+    if (error.name == 'SequelizeValidationError') {
+      next(createError(400, error.message));
+      return;
+    }
+    next(error);
   }
 };
 // delete

@@ -1,15 +1,22 @@
 const Solution = require('../../models').Solution;
+const createError = require('http-errors');
 
-exports.createSolution = (req, res) => {
+exports.createSolution = (req, res, next) => {
   Solution.create({
     ...req.body,
-    userId: '61bf808c-a31f-4406-821e-689726808402',
+    userId: req.user.id,
   })
-    .then((created) => res.status(201).json({ created }))
-    .catch((error) => res.status(400).json({ error: error }));
+    .then((created) => res.status(201).send({ created }))
+    .catch((error) => {
+      if (error.name == 'SequelizeValidationError') {
+        next(createError(400, error.message));
+        return;
+      }
+      next(error);
+    });
 };
 
-exports.updateSolution = async (req, res) => {
+exports.updateSolution = async (req, res, next) => {
   try {
     const solutionexit = await Solution.findOne({
       where: {
@@ -18,7 +25,7 @@ exports.updateSolution = async (req, res) => {
       },
     });
     if (!solutionexit) {
-      throw new Error('Language with this info does not exist');
+      throw createError(404, 'SOlution not found');
     }
     const solutionupdate = await Solution.update(req.body, {
       where: {
@@ -27,21 +34,26 @@ exports.updateSolution = async (req, res) => {
       },
     });
     if (!solutionupdate) {
-      throw new Error('Bad request');
+      throw createError(400, 'all fields are required');
     }
-    return res.status(200).json({ message: 'record updated successfully' });
+    return res.status(200).send({ message: 'record updated successfully' });
   } catch (error) {
-    return res.status(400).json(error);
+    next(error);
   }
 };
 
-exports.deleteSolution = (req, res) => {
+exports.deleteSolution = (req, res, next) => {
   Solution.destroy({
     where: {
       id: req.params.id,
       userId: req.user.id,
     },
   })
-    .then(() => res.status(200).json({ message: 'record deleted' }))
-    .catch((error) => res.status(404).json({ error: error }));
+    .then((row) => {
+      if (!row) {
+        throw createError(404, 'not found');
+      }
+      res.status(200).send({ message: 'record deleted' });
+    })
+    .catch((error) => next(error));
 };

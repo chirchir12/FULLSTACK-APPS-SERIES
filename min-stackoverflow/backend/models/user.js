@@ -12,10 +12,39 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
       },
-      firstName: DataTypes.STRING,
-      lastName: DataTypes.STRING,
-      email: DataTypes.STRING,
-      password: DataTypes.STRING,
+      firstName: {
+        allowNull: false,
+        validate: {
+          is: {
+            args: ['^[a-z]+$', 'i'],
+            msg: 'FirstName is required',
+          },
+        },
+        type: DataTypes.STRING,
+      },
+      lastName: {
+        allowNull: false,
+        validate: {
+          is: {
+            args: ['^[a-z]+$', 'i'],
+            msg: 'LastName is required',
+          },
+        },
+        type: DataTypes.STRING,
+      },
+      email: {
+        allowNull: false,
+        validate: {
+          isEmail: {
+            msg: 'Email is required',
+          },
+        },
+        type: DataTypes.STRING,
+      },
+      password: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
     },
     {}
   );
